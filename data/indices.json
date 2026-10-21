@@ -1,0 +1,119 @@
+{
+ "source": "Письмо Минстроя России от 13.08.2026 № 50058-ИФ/09, прил. 3",
+ "period": "III квартал 2026, к ценам 01.01.2000",
+ "default": "econ",
+ "items": [
+  {
+   "id": "house",
+   "label": "Жилой дом",
+   "minstroy": "Жилищное строительство",
+   "index": 12.61
+  },
+  {
+   "id": "edu",
+   "label": "Школа, детский сад, вуз",
+   "minstroy": "Образование",
+   "index": 11.71
+  },
+  {
+   "id": "med",
+   "label": "Поликлиника, больница",
+   "minstroy": "Здравоохранение",
+   "index": 12.32
+  },
+  {
+   "id": "nonprod",
+   "label": "Офис, культура, спорт, админздание",
+   "minstroy": "Непроизводственные объекты",
+   "index": 16.41
+  },
+  {
+   "id": "trade",
+   "label": "Торговля, склад",
+   "minstroy": "Торговля",
+   "index": 17.86
+  },
+  {
+   "id": "trans",
+   "label": "Дорога, мост, транспорт",
+   "minstroy": "Транспорт",
+   "index": 18.88
+  },
+  {
+   "id": "econ",
+   "label": "Другое / не знаю",
+   "minstroy": "Экономика в целом",
+   "index": 13.03
+  }
+ ],
+ "pp468": {
+  "scale": [
+   {
+    "upToMlnRub2000": 30,
+    "percent": 2.14,
+    "staff": 2
+   },
+   {
+    "upToMlnRub2000": 50,
+    "percent": 1.93,
+    "staff": 3
+   },
+   {
+    "upToMlnRub2000": 70,
+    "percent": 1.81,
+    "staff": 4
+   },
+   {
+    "upToMlnRub2000": 90,
+    "percent": 1.72,
+    "staff": 5
+   },
+   {
+    "upToMlnRub2000": 125,
+    "percent": 1.61,
+    "staff": 6
+   },
+   {
+    "upToMlnRub2000": 150,
+    "percent": 1.56,
+    "staff": 7
+   },
+   {
+    "upToMlnRub2000": 200,
+    "percent": 1.47,
+    "staff": 9
+   },
+   {
+    "upToMlnRub2000": 300,
+    "percent": 1.36,
+    "staff": 12
+   },
+   {
+    "upToMlnRub2000": 400,
+    "percent": 1.28,
+    "staff": 15
+   },
+   {
+    "upToMlnRub2000": 500,
+    "percent": 1.23,
+    "staff": 18
+   },
+   {
+    "upToMlnRub2000": 600,
+    "percent": 1.18,
+    "staff": 21
+   },
+   {
+    "upToMlnRub2000": 750,
+    "percent": 1.13,
+    "staff": 25
+   },
+   {
+    "upToMlnRub2000": 900,
+    "percent": 1.09,
+    "staff": 28
+   }
+  ],
+  "above900": "H = 0.04193*C^0.8022/C*100; staff = 28 + floor((C-900)/30)"
+ }
+}

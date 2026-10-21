@@ -1,0 +1,11 @@
+---
+const path = Astro.url.pathname.replace(/\.html$/, '');
+const tabs = [
+  { href: '/kalkulyator', label: 'Калькулятор по объекту' },
+  { href: '/ceny', label: 'Пакеты: контроль монолита' },
+  { href: '/ceny/rascenki', label: 'Единичные расценки' },
+];
+---
+<nav class="seg-nav" aria-label="Способ расчёта цены" style="margin-top:24px">
+  {tabs.map((t) => <a href={t.href} aria-current={path === t.href ? 'page' : undefined}>{t.label}</a>)}
+</nav>

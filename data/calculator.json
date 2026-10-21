@@ -1,0 +1,131 @@
+{
+  "_comment": "Нормы и цены калькулятора по объекту. Цена задаётся ссылкой на позицию прайса: {\"rate\": id} — цена и флаг «от» берутся из rates.json; {\"rate\": id, \"from\": true} — с переопределением флага; {\"price\": N, \"from\": false} — собственная цена калькулятора.",
+  "sk": {
+    "idoc": {
+      "tiers": [
+        { "upToMln": 100, "percent": 1.4 },
+        { "upToMln": 500, "percent": 1.05 },
+        { "upToMln": null, "percent": 0.7 }
+      ],
+      "from": true
+    }
+  },
+  "asphalt": {
+    "coresPer": { "road": 2333.3333, "euro": 3000, "yard": 2000 },
+    "coresRounding": "round",
+    "prices": {
+      "coreRoad": { "rate": 53 },
+      "coreEuro": { "rate": 55 },
+      "coreYard": { "rate": 53 },
+      "labStd": { "rate": 68 },
+      "labEuro": { "rate": 64 },
+      "evenness": { "rate": 69 },
+      "mixSample": { "rate": 58 },
+      "mixGrain": { "rate": 61 },
+      "mixRut": { "rate": 65 },
+      "mixPhys": { "rate": 63 },
+      "schemeSheet": { "rate": 60 },
+      "report": { "rate": 134 },
+      "visit": { "rate": 137 }
+    },
+    "geodesy": {
+      "tiers": [
+        { "upToM2": 5000, "pricePerM2": 8 },
+        { "upToM2": 20000, "pricePerM2": 5.5 },
+        { "upToM2": null, "pricePerM2": 4 }
+      ],
+      "minPrice": 25000
+    },
+    "schemeM2PerSheet": 2500
+  },
+  "soil": {
+    "plotM2": 500,
+    "pduPointsPerPlot": 3,
+    "prices": {
+      "dyn": { "rate": 20 },
+      "stat": { "rate": 19 },
+      "ring": { "rate": 23 },
+      "pduPoint": { "rate": 21 },
+      "maxDensity": { "rate": 26 },
+      "sand": { "rate": 49 },
+      "ground": { "rate": 48 },
+      "gravel": { "rate": 50 },
+      "pit": { "rate": 52 }
+    }
+  },
+  "concrete": {
+    "m3PerSeries": 50,
+    "ndtM2PerPlot": 4,
+    "ndtLmPerPlot": 4,
+    "prices": {
+      "sampling": { "rate": 1 },
+      "compression": { "rate": 10 },
+      "slump": { "rate": 3 },
+      "temperature": { "rate": 5 },
+      "density": { "rate": 6 },
+      "waterAbs": { "rate": 14 },
+      "w": { "rate": 13 },
+      "f": { "rate": 15 },
+      "ultrasound": { "rate": 9 },
+      "pullOff": { "rate": 8 }
+    }
+  },
+  "hydro": {
+    "plotM2": 500,
+    "masticPointsPerPlot": 3,
+    "prices": {
+      "roll": { "rate": 78 },
+      "mastic": { "rate": 79 },
+      "visual": { "rate": 84 }
+    }
+  },
+  "weld": {
+    "prices": {
+      "vik": { "rate": 73 },
+      "ut": { "rate": 72 }
+    }
+  },
+  "anchor": {
+    "minTests": 3,
+    "prices": {
+      "upTo50": { "rate": 117 },
+      "upTo90": { "rate": 118 },
+      "calc": { "rate": 122 }
+    }
+  },
+  "ladder": {
+    "prices": {
+      "verticalPerM": { "rate": 123 },
+      "verticalMin": { "rate": 125 },
+      "marchPerM": { "rate": 124 },
+      "marchMin": { "rate": 126 },
+      "roofPerM": { "rate": 128 },
+      "roofMin": { "rate": 129 },
+      "balcony": { "rate": 127 }
+    },
+    "roofMinUpToM": 200,
+    "from": true
+  },
+  "survey": {
+    "smallUpToM2": 100,
+    "prices": {
+      "visFlatSmall": { "rate": 96 },
+      "visFlatBig": { "rate": 97 },
+      "visNonresSmall": { "rate": 98 },
+      "visNonresBig": { "rate": 99 },
+      "instrFlatSmall": { "rate": 100 },
+      "instrNonresSmall": { "rate": 101 },
+      "balcony": { "rate": 103 },
+      "roof": { "rate": 104 },
+      "visit": { "rate": 138 }
+    },
+    "scale": [
+      { "m2": 100, "price": 23400 },
+      { "m2": 1000, "price": 194700 },
+      { "m2": 10000, "price": 661900 }
+    ],
+    "abovePerM2": 51.9,
+    "minPrice": 50000,
+    "roundTo": 100
+  }
+}

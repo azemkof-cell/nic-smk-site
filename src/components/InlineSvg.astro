@@ -1,0 +1,11 @@
+---
+/** Иллюстрация из макета инлайном (без лишнего запроса), с обрезкой как object-fit: cover */
+interface Props { raw: string; label: string }
+const { raw, label } = Astro.props;
+const svg = raw
+  .replace(/<\?xml[^>]*>/, '')
+  .replace(/<svg([^>]*?)\swidth="[^"]*"/, '<svg$1')
+  .replace(/<svg([^>]*?)\sheight="[^"]*"/, '<svg$1')
+  .replace('<svg', `<svg role="img" aria-label="${label.replace(/"/g, '&quot;')}" preserveAspectRatio="xMidYMid slice" focusable="false"`);
+---
+<Fragment set:html={svg} />

@@ -1,0 +1,16 @@
+---
+import type { Crumb } from '../layouts/Base.astro';
+interface Props { items: Crumb[] }
+const { items } = Astro.props;
+---
+<nav aria-label="Хлебные крошки">
+  <ol class="crumbs">
+    <li><a href="/">Главная</a></li>
+    {items.map((c, i) => (
+      <Fragment>
+        <li aria-hidden="true">/</li>
+        <li>{i === items.length - 1 ? <span aria-current="page">{c.name}</span> : <a href={c.href}>{c.name}</a>}</li>
+      </Fragment>
+    ))}
+  </ol>
+</nav>

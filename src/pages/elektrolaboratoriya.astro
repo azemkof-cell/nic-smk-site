@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import InlineSvg from '../components/InlineSvg.astro';
+import CallbackSection from '../components/CallbackSection.astro';
+import elSvg from '../assets/img/elektro.svg?raw';
+
+const crumbs = [{ name: 'Электролаборатория', href: '/elektrolaboratoriya' }];
+const tests = [
+  'Проверка соответствия смонтированной электроустановки требованиям нормативно-технической документации (визуальный осмотр)',
+  'Измерение сопротивления заземляющих устройств',
+  'Измерение удельного сопротивления грунта',
+  'Проверка цепи между заземлителями и заземляемыми элементами; проверка наличия цепи между заземлёнными установками и элементами заземлённой установки',
+  'Измерение сопротивления изоляции электрических аппаратов, вторичных цепей и электропроводки напряжением до 1 кВ',
+  'Проверка срабатывания защиты в системе питания с заземлённой нейтралью (измерение тока однофазного КЗ или полного сопротивления петли «фаза — нуль»)',
+  'Испытание устройств АВР',
+  'Измерение напряжения прикосновения и шага',
+  'Проверка фазировки распределительных устройств и их присоединений',
+  'Проверка действия расцепителей автоматических выключателей',
+  'Испытание силовых кабельных линий напряжением до 1 кВ',
+  'Испытание электродвигателей переменного тока напряжением до 1 кВ',
+  'Испытание (проверка) устройств защитного отключения (УЗО)',
+  'Проверка устройств молниезащиты',
+  'Измерение уровня освещённости и других светотехнических параметров',
+];
+const schema = [{ '@context': 'https://schema.org', '@type': 'Service', name: 'Испытания и измерения электроустановок до 1000 В', provider: { '@id': 'https://nic-smk.ru/#org' }, areaServed: 'Москва и Московская область' }];
+---
+<Base title="Электролаборатория до 1000 В в Москве — НИЦ СМК" description="Приёмо-сдаточные испытания и измерения электроустановок до 1000 В. Электролаборатория в реестре Ростехнадзора (№ 10041). Технический отчёт с протоколами." crumbs={crumbs} schema={schema}>
+  <section class="on-ink">
+    <div class="container" style="padding-top:40px;padding-bottom:88px">
+      <Crumbs items={crumbs} />
+      <div class="split" style="margin-top:36px">
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <span class="eyebrow">Электроизмерительная лаборатория</span>
+          <h1 class="h1 h1--md">Испытания и измерения электро&shy;установок до 1000&nbsp;В</h1>
+          <p class="lead" style="max-width:600px">Выполняем приёмо-сдаточные испытания электрооборудования и электроустановок переносным комплектом приборов. Оформляем технический отчёт с протоколами измерений.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px">
+            <a href="#zayavka" class="btn btn--accent btn--lg">Заказать испытания</a>
+          </div>
+        </div>
+        <div class="comp-card" style="border-radius:24px;padding:20px 20px 28px">
+          <figure class="photo svg-fig" style="aspect-ratio:4/3;border-radius:16px;margin-bottom:6px"><InlineSvg raw={elSvg} label="Измерение сопротивления изоляции в электрощите" /></figure>
+          <h2 style="margin:0;font-size:20px;font-weight:800">Свидетельство о регистрации электролаборатории</h2>
+          <div style="color:var(--on-ink)">Рег. № 10041 от 18.07.2025</div>
+          <div style="color:var(--on-ink)">Межрегиональное технологическое управление Федеральной службы по экологическому, технологическому и атомному надзору (Ростехнадзор)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section" aria-labelledby="t-h">
+    <h2 class="h2 h2--sm" id="t-h" style="margin-bottom:8px">Виды испытаний и измерений</h2>
+    <p style="margin:0 0 32px;color:var(--muted)">Перечень в соответствии со свидетельством о регистрации — {tests.length} видов.</p>
+    <ol class="rows el-list">
+      {tests.map((t, i) => <li class="row"><span style="font-weight:800;color:var(--accent-ink);font-size:14px;min-width:24px;padding-top:2px" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><span>{t}</span></li>)}
+    </ol>
+  </section>
+
+  <section class="section section--white" aria-labelledby="w-h">
+    <div class="container">
+      <h2 class="h2 h2--sm" id="w-h" style="margin-bottom:40px">Когда нужны испытания</h2>
+      <div class="grid grid--260">
+        {[
+          ['Ввод объекта в эксплуатацию', 'Приёмо-сдаточные испытания вновь смонтированных электроустановок.'],
+          ['После ремонта и реконструкции', 'Проверка электроустановки после замены оборудования или проводки.'],
+          ['Подключение к сетям', 'Технический отчёт для сетевой организации и энергонадзора.'],
+        ].map(([t, d]) => <div class="card card--soft"><h3 class="card-title">{t}</h3><p style="margin:8px 0 0;color:var(--muted)">{d}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <CallbackSection title="Рассчитаем стоимость электро­измерений" text="Пришлите однолинейную схему или описание объекта — рассчитаем стоимость за 30 минут." direction="Электролаборатория" />
+</Base>

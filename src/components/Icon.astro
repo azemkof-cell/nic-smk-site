@@ -1,0 +1,26 @@
+---
+/** Иконки (stroke, 24×24) из макета */
+const P: Record<string, string> = {
+  arrow: '<path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>',
+  check: '<path d="m5 12 5 5 9-10"/>',
+  home: '<path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/>',
+  helmet: '<path d="M2 18h20"/><path d="M4 18v-2a8 8 0 0 1 16 0v2"/><path d="M10 9V5h4v4"/>',
+  grid: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',
+  flask: '<path d="M9 3h6"/><path d="M10 3v6L4.5 18.5A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.5L14 9V3"/><path d="M7 15h10"/>',
+  bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+  search: '<path d="M3 21h12"/><path d="M5 21V5h8v16"/><path d="M8 9h2M8 13h2"/><circle cx="17.5" cy="14.5" r="3"/><path d="m19.7 16.7 2.3 2.3"/>',
+  medal: '<circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/>',
+  shield: '<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
+  doc: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="m9 15 2 2 4-4"/>',
+  copy: '<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>',
+  down: '<path d="M12 5v14"/><path d="m6 13 6 6 6-6"/>',
+  bus: '<rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 11h16M8 21v-4M16 21v-4"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  close: '<path d="M6 6l12 12M18 6 6 18"/>',
+  download: '<path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/>',
+  external: '<path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>',
+};
+interface Props { name: keyof typeof P | string; size?: number; stroke?: string; width?: number; style?: string; class?: string }
+const { name, size = 24, stroke = 'currentColor', width = 2, style, class: cls } = Astro.props;
+---
+<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={stroke} stroke-width={width} stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style={style} class={cls} set:html={P[name]} />

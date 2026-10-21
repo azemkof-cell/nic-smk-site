@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Icon from '../components/Icon.astro';
+import PriceTabs from '../components/PriceTabs.astro';
+import CallbackSection from '../components/CallbackSection.astro';
+import PackagesBlock from '../components/islands/PackagesBlock';
+import { contacts, packages, rates } from '../lib/data';
+
+const crumbs = [{ name: 'Цены', href: '/ceny' }];
+const schema = [{
+  '@context': 'https://schema.org', '@type': 'OfferCatalog', name: 'Пакеты сплошного контроля прочности монолитных конструкций',
+  itemListElement: packages.packages.map((p) => ({ '@type': 'Offer', name: 'Пакет «' + p.name + '»', price: p.price, priceCurrency: 'RUB', description: p.includes.join('; ') + '. За объект в месяц, без НДС.' })),
+}];
+---
+<Base title="Цены на контроль монолита и испытания — НИЦ СМК" description="Пакеты сплошного контроля прочности монолита: 75 000, 90 000 и 140 000 ₽ за объект в месяц без НДС. Калькулятор по объекту и 138 единичных расценок." crumbs={crumbs} schema={schema}>
+  <section class="container" style="padding-top:40px;padding-bottom:56px">
+    <Crumbs items={crumbs} />
+    <PriceTabs />
+    <h1 class="h1 h1--md" style="margin-top:32px">Сплошной контроль прочности монолитных конструкций</h1>
+    <p class="lead" style="margin-top:16px;max-width:720px">Пакеты для строек с монолитными конструкциями. Цена фиксированная — <b>за один объект в месяц</b>, без НДС. Для дорог, благоустройства и отдельных испытаний — <a href="/kalkulyator">калькулятор по объекту</a> и <a href="/ceny/rascenki">единичные расценки</a>.</p>
+  </section>
+
+  <section class="container" style="padding-top:8px;padding-bottom:40px">
+    <PackagesBlock client:load phone={contacts.phone} idPrefix="pk-ceny" />
+    <p style="margin:16px 0 0;font-size:14px;color:var(--muted)">Информация не является публичной офертой; цены без НДС; итоговая стоимость фиксируется в договоре.</p>
+  </section>
+
+  <section class="container" style="padding-bottom:16px" aria-label="Другие способы расчёта">
+    <div class="grid grid--340" style="gap:16px">
+      <a href="/ceny/rascenki" class="card service-card" style="border-radius:20px;padding:24px 28px;flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-items:center">
+        <div>
+          <h2 class="card-title" style="font-size:19px">Нужно отдельное испытание?</h2>
+          <p style="margin-top:4px">Единичные расценки: {rates.length} позиций с поиском и расчётом стоимости.</p>
+        </div>
+        <span class="link-arrow">Открыть расценки <Icon name="arrow" size={18} width={2.2} /></span>
+      </a>
+      <a href="/kalkulyator" class="card service-card" style="border-radius:20px;padding:24px 28px;flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-items:center">
+        <div>
+          <h2 class="card-title" style="font-size:19px">Дорога, грунт, стройконтроль?</h2>
+          <p style="margin-top:4px">Калькулятор по объекту: состав испытаний по ГОСТ и КП за минуту.</p>
+        </div>
+        <span class="link-arrow">Открыть калькулятор <Icon name="arrow" size={18} width={2.2} /></span>
+      </a>
+    </div>
+  </section>
+
+  <CallbackSection title="Не знаете, какой пакет нужен?" text="Опишите объект — подберём оптимальный объём работ и перезвоним в течение 30 минут." direction="Контроль прочности монолитных конструкций" />
+</Base>

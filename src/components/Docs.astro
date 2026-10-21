@@ -1,0 +1,32 @@
+---
+/** Блок «Документы и допуски»: аттестат, СРО — со ссылками на проверку в реестрах */
+import fs from 'node:fs';
+import path from 'node:path';
+interface Props { full?: boolean; only?: string[] }
+// Копия показывается, только когда PDF положили в public/docs (открытый вопрос ТЗ)
+const hasFile = (p?: string) => !!p && fs.existsSync(path.join(process.cwd(), 'public', p));
+const { full = true, only } = Astro.props;
+const DOCS = [
+  { id: 'akkr', title: 'Аттестат аккредитации испытательной лаборатории', text: '№ RU.АСК.ИЛ.1132 от 29.12.2022, выдан АО «Система АКСЕКО». Соответствие ГОСТ ISO/IEC 17025-2019. Действие подтверждено 29.12.2024.', check: { href: 'https://pub.fsa.gov.ru/ral', label: 'Проверить в реестре ФСА' }, pdf: '/docs/attestat-akkreditacii.pdf' },
+  { id: 'elektro', title: 'Свидетельство о регистрации электролаборатории', text: '№ 10041 от 18.07.2025, Межрегиональное технологическое управление Ростехнадзора. Электроустановки до 1000 В.', pdf: '/docs/svidetelstvo-elektrolaboratorii.pdf' },
+  { id: 'sro-iz', title: 'СРО в области инженерных изысканий', text: 'Ассоциация «СРО «Лига изыскателей», рег. № И-013-009715387698-1360, член с 26.03.2024.', check: { href: 'https://reestr.nopriz.ru/', label: 'Проверить в реестре НОПРИЗ' }, pdf: '/docs/vypiska-sro-izyskaniya.pdf' },
+  { id: 'sro-pr', title: 'СРО в области проектирования', text: 'Ассоциация СРО «ЦЕНТРСТРОЙПРОЕКТ», рег. № 2779, член с 29.10.2024.', check: { href: 'https://reestr.nopriz.ru/', label: 'Проверить в реестре НОПРИЗ' }, pdf: '/docs/vypiska-sro-proektirovanie.pdf' },
+  { id: 'sro-st', title: 'СРО в области строительства', text: 'Ассоциация СРО «СОМ» («Строительные организации Москвы»), реестр СРО-С-296-18042018, член № 1984 с 08.05.2026. Первый уровень ответственности (до 90 млн ₽). Член СРО — ООО «НИЦ СМК», ИНН 9715522474.', check: { href: 'https://reestr.nostroy.ru/', label: 'Проверить в реестре НОСТРОЙ' }, pdf: '/docs/vypiska-sro-stroitelstvo.pdf' },
+  { id: 'nrs', title: 'Квалификация специалистов', text: 'Специалисты включены в Национальные реестры специалистов НОСТРОЙ и НОПРИЗ.' },
+];
+const list = only ? DOCS.filter((d) => only.includes(d.id)) : DOCS;
+---
+<div class="docs">
+  {list.map((d) => (
+    <div class="docs__item">
+      <h3 class="docs__t">{d.title}</h3>
+      <p class="docs__d">{d.text}</p>
+      {full && (hasFile(d.pdf) || d.check) && (
+        <p class="docs__links">
+          {hasFile(d.pdf) && <a href={d.pdf} data-doc>Копия (PDF)</a>}
+          {d.check && <a href={d.check.href} rel="noopener" target="_blank">{d.check.label}<span class="sr-only"> (откроется в новой вкладке)</span></a>}
+        </p>
+      )}
+    </div>
+  ))}
+</div>

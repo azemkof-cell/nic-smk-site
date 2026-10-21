@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+<rect width="800" height="600" fill="#1E2227"/>
+<circle cx="640" cy="120" r="150" fill="#F5C02B" opacity="0.08"/>
+<rect x="70" y="60" width="360" height="480" rx="14" fill="#C9CCD1"/>
+<rect x="90" y="80" width="320" height="440" rx="8" fill="#E9EAEC"/>
+<g fill="#FFFFFF" stroke="#9EA3AA" stroke-width="2">
+<rect x="110" y="110" width="280" height="90" rx="6"/>
+<rect x="110" y="230" width="280" height="90" rx="6"/>
+<rect x="110" y="350" width="280" height="90" rx="6"/>
+</g>
+<g fill="#3A3F45">
+<rect x="125" y="125" width="34" height="60" rx="4"/><rect x="167" y="125" width="34" height="60" rx="4"/><rect x="209" y="125" width="34" height="60" rx="4"/><rect x="251" y="125" width="34" height="60" rx="4"/><rect x="293" y="125" width="34" height="60" rx="4"/><rect x="335" y="125" width="34" height="60" rx="4"/>
+<rect x="125" y="245" width="34" height="60" rx="4"/><rect x="167" y="245" width="34" height="60" rx="4"/><rect x="209" y="245" width="76" height="60" rx="4"/><rect x="293" y="245" width="34" height="60" rx="4"/><rect x="335" y="245" width="34" height="60" rx="4"/>
+<rect x="125" y="365" width="34" height="60" rx="4"/><rect x="167" y="365" width="34" height="60" rx="4"/><rect x="209" y="365" width="34" height="60" rx="4"/><rect x="251" y="365" width="34" height="60" rx="4"/>
+</g>
+<g fill="#F5C02B">
+<rect x="135" y="140" width="14" height="14" rx="2"/><rect x="177" y="140" width="14" height="14" rx="2"/><rect x="219" y="140" width="14" height="14" rx="2"/><rect x="261" y="140" width="14" height="14" rx="2"/><rect x="303" y="140" width="14" height="14" rx="2"/><rect x="345" y="140" width="14" height="14" rx="2"/>
+<rect x="135" y="260" width="14" height="14" rx="2"/><rect x="177" y="260" width="14" height="14" rx="2"/><rect x="240" y="260" width="14" height="14" rx="2"/><rect x="303" y="260" width="14" height="14" rx="2"/><rect x="345" y="260" width="14" height="14" rx="2"/>
+<rect x="135" y="380" width="14" height="14" rx="2"/><rect x="177" y="380" width="14" height="14" rx="2"/><rect x="219" y="380" width="14" height="14" rx="2"/><rect x="261" y="380" width="14" height="14" rx="2"/>
+</g>
+<path d="M310 395 C 380 420, 430 470, 500 450" fill="none" stroke="#D93B3B" stroke-width="6" stroke-linecap="round"/>
+<path d="M350 395 C 410 380, 460 400, 520 430" fill="none" stroke="#14171A" stroke-width="6" stroke-linecap="round"/>
+<circle cx="310" cy="395" r="8" fill="#D93B3B"/><circle cx="350" cy="395" r="8" fill="#14171A" stroke="#E9EAEC" stroke-width="2"/>
+<rect x="480" y="300" width="230" height="270" rx="26" fill="#F5C02B"/>
+<rect x="500" y="320" width="190" height="230" rx="18" fill="#14171A"/>
+<rect x="516" y="336" width="158" height="96" rx="8" fill="#1F3B36"/>
+<text x="595" y="364" font-family="Arial, sans-serif" font-size="15" fill="#8FD3C7" text-anchor="middle">R изоляции</text>
+<text x="595" y="404" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#F5C02B" text-anchor="middle">520</text>
+<text x="595" y="424" font-family="Arial, sans-serif" font-size="12" fill="#8FD3C7" text-anchor="middle">МОм · 500 В</text>
+<circle cx="595" cy="490" r="34" fill="#3A3F45"/>
+<circle cx="595" cy="490" r="22" fill="#262B31"/>
+<line x1="595" y1="490" x2="610" y2="472" stroke="#F5C02B" stroke-width="5" stroke-linecap="round"/>
+<rect x="510" y="60" width="210" height="52" rx="12" fill="#F5C02B"/>
+<text x="615" y="94" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#14171A" text-anchor="middle">до 1000 В</text>
+<path d="M640 150 L615 205 L640 205 L622 255 L668 190 L642 190 L660 150 Z" fill="#F5C02B" opacity="0.9"/>
+</svg>

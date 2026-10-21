@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Steps from '../components/Steps.astro';
+import CallbackSection from '../components/CallbackSection.astro';
+import InlineSvg from '../components/InlineSvg.astro';
+import PackagesBlock from '../components/islands/PackagesBlock';
+import { contacts, packages } from '../lib/data';
+import { fmt } from '../lib/format';
+import ndtSvg from '../assets/img/monolit-ndt.svg?raw';
+
+const crumbs = [{ name: 'Контроль прочности монолитных конструкций', href: '/kontrol-monolita' }];
+const schema = [{
+  '@context': 'https://schema.org', '@type': 'Service', name: 'Сплошной контроль прочности монолитных конструкций',
+  provider: { '@id': 'https://nic-smk.ru/#org' }, areaServed: 'Москва и Московская область',
+  offers: packages.packages.map((p) => ({ '@type': 'Offer', name: 'Пакет «' + p.name + '»', price: p.price, priceCurrency: 'RUB', description: p.description + ' (за объект в месяц, без НДС)' })),
+}];
+---
+<Base title="Контроль прочности монолитных конструкций — НИЦ СМК" description="Сплошной контроль прочности бетона во всех монолитных конструкциях. Фиксированная цена от 75 000 ₽ за объект в месяц, протоколы аккредитованной лаборатории." crumbs={crumbs} schema={schema}>
+  <section class="on-ink">
+    <div class="container" style="padding-top:40px;padding-bottom:88px">
+      <Crumbs items={crumbs} />
+      <div class="split" style="margin-top:36px">
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <span class="eyebrow">Лабораторный контроль бетона</span>
+          <h1 class="h1" style="font-size:clamp(28px,4.2vw,54px);line-height:1.16">Сплошной контроль прочности монолитных конструкций</h1>
+          <p class="lead">Для строек с монолитными конструкциями. Проверяем фактическую прочность бетона во всех конструкциях объекта — фундаментах, плитах, стенах, колоннах — и выдаём протоколы аккредитованной лаборатории. Фиксированная цена за объект в месяц.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px">
+            <a href="#pakety" class="btn btn--accent btn--lg">Выбрать пакет</a>
+            <a href="#zayavka" class="btn btn--ghost btn--lg">Обсудить объект</a>
+          </div>
+        </div>
+        <figure class="photo photo--43 svg-fig"><InlineSvg raw={ndtSvg} label="Инженер определяет прочность бетона в колонне неразрушающим методом по участкам" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="pakety" class="container" style="padding-top:64px;padding-bottom:40px;scroll-margin-top:80px">
+    <PackagesBlock client:visible phone={contacts.phone} idPrefix="pk-mon" />
+  </section>
+
+  <section class="container" style="padding-top:40px;padding-bottom:56px" aria-labelledby="post-h">
+    <div class="card" style="border-radius:24px;padding:clamp(24px,4vw,40px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px">
+      <div style="max-width:720px">
+        <div class="eyebrow">Для крупных объектов</div>
+        <h2 class="card-title card-title--lg" id="post-h" style="margin-top:8px">Стационарный пост лаборатории на объекте</h2>
+        <p style="margin:8px 0 0;color:var(--text-2)">Лаборант постоянно на площадке: приёмка каждой партии бетона, изготовление и испытание образцов, контроль укладки и твердения, ведение документации.</p>
+      </div>
+      <div style="text-align:right">
+        <div style="font-family:var(--f-display);font-size:28px;font-weight:600">от {fmt(packages.stationaryPost.priceFrom)}&nbsp;₽</div>
+        <div style="color:var(--muted)">в месяц, без НДС</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" style="padding-top:88px;padding-bottom:40px" aria-labelledby="m-h">
+    <h2 class="h2 h2--sm" id="m-h" style="margin-bottom:32px">Как проводим контроль</h2>
+    <Steps items={[
+      ['Изучаем объект', 'Состав монолитных конструкций, проектные классы бетона, график бетонирования.'],
+      ['Испытываем каждую конструкцию', 'Неразрушающий контроль прочности бетона по ГОСТ 18105, 22690, 17624.'],
+      ['Оцениваем класс бетона', 'Сравниваем фактическую прочность с проектной.'],
+      ['Выдаём протоколы', 'Протоколы аккредитованной лаборатории для исполнительной документации.'],
+    ]} />
+  </section>
+
+  <section class="container" style="padding-top:48px" aria-labelledby="meth-h">
+    <h2 class="h2 h2--sm" id="meth-h" style="margin-bottom:32px">Методы</h2>
+    <div class="grid grid--260">
+      {[
+        ['Отрыв со скалыванием', 'ГОСТ 22690-2015', 'Прямой механический метод — самый точный из неразрушающих. Им же калибруем косвенные методы.'],
+        ['Ультразвуковой метод', 'ГОСТ 17624-2012', 'Быстро проверяем прочность по всей площади конструкций, находим зоны с отклонениями.'],
+        ['Оценка по ГОСТ 18105', 'ГОСТ 18105-2018', 'Статистическая оценка однородности и фактического класса бетона по результатам испытаний.'],
+        ['Контрольные образцы', 'ГОСТ 10180-2012', 'При необходимости — отбор проб смеси и испытание кубов в лаборатории.'],
+      ].map(([t, n, d]) => <div class="card" style="border-radius:18px"><h3 class="card-title">{t}</h3><span class="tag" style="display:inline-block;margin-top:8px;font-size:13px">{n}</span><p style="margin:8px 0 0;color:var(--muted)">{d}</p></div>)}
+    </div>
+  </section>
+
+  <CallbackSection title="Подберём пакет под ваш объект" text="Расскажите об объекте — поможем выбрать пакет и перезвоним в течение 30 минут." direction="Контроль прочности монолитных конструкций" />
+</Base>

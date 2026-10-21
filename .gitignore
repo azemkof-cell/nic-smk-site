@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+storage/
+.env
+.server.pid
+# подпись и печать — только на сервере, не в публичном репозитории
+private/*.png

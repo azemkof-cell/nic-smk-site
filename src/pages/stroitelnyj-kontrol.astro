@@ -1,0 +1,138 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Icon from '../components/Icon.astro';
+import Photo from '../components/Photo.astro';
+import Docs from '../components/Docs.astro';
+import CallbackSection from '../components/CallbackSection.astro';
+import { indices } from '../lib/data';
+import { pp468, idocPercent } from '../lib/calc';
+import { fmt } from '../lib/format';
+import siteImg from '../assets/img/site-stroykontrol.jpg';
+import teamImg from '../assets/img/site-team.jpg';
+
+const crumbs = [{ name: 'Строительный контроль', href: '/stroitelnyj-kontrol' }];
+const example = pp468(250, 'econ');
+const econ = indices.items.find((i) => i.id === 'econ')!;
+const schema = [{
+  '@context': 'https://schema.org', '@type': 'Service', name: 'Строительный контроль', serviceType: 'Строительный контроль со стороны заказчика',
+  provider: { '@id': 'https://nic-smk.ru/#org' }, areaServed: 'Москва и Московская область',
+  description: 'Строительный контроль по ПП РФ № 468: приёмка скрытых работ, контроль качества, исполнительная документация.',
+}];
+---
+<Base title="Строительный контроль в Москве — НИЦ СМК" description="Строительный контроль со стороны заказчика: приёмка скрытых работ, предписания, исполнительная документация. Расчёт стоимости по ПП РФ № 468 онлайн." crumbs={crumbs} schema={schema}>
+  <section class="container" style="padding-top:40px;padding-bottom:72px">
+    <Crumbs items={crumbs} />
+    <div style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:48px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <span class="eyebrow">Услуга</span>
+        <h1 class="h1 h1--md">Строительный контроль</h1>
+        <p class="lead">Строительный контроль со стороны заказчика: проверяем, что работы на объекте выполняются по проекту, нормативам и договору. Принимаем скрытые работы, фиксируем замечания и контролируем их устранение, ведём исполнительную документацию до сдачи объекта.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <a href="/kalkulyator?type=sk" class="btn btn--accent btn--lg">Рассчитать стоимость</a>
+          <a href="#zayavka" class="btn btn--dark btn--lg">Обсудить объект</a>
+        </div>
+      </div>
+      <div class="on-ink" style="border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:16px">
+        <h2 style="margin:0;font-size:20px;font-weight:800">Что вы получаете</h2>
+        <ul class="check-list" style="color:#D6D9DD">
+          {['Акты освидетельствования скрытых работ', 'Предписания и ведомость замечаний с контролем устранения', 'Протоколы испытаний материалов', 'Отчёт по строительному контролю и исполнительная документация'].map((t) => <li><Icon name="check" size={18} stroke="#F5C02B" width={2.6} />{t}</li>)}
+        </ul>
+        <div style="border-top:1px solid var(--ink-line);padding-top:16px;color:var(--on-ink);font-size:15px">Стоимость зависит от объекта и графика работ — рассчитаем за 30 минут.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom:72px" aria-label="Фото с объектов">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:12px">
+      <figure class="photo photo--43"><Photo src={siteImg} alt="Инженер строительного контроля проверяет армирование на монолитном каркасе" eager sizes="(max-width: 820px) 100vw, 620px" /><figcaption>Контроль на площадке</figcaption></figure>
+      <figure class="photo photo--43"><Photo src={teamImg} alt="Специалисты НИЦ СМК на объекте вместе с заказчиком" sizes="(max-width: 820px) 100vw, 620px" /><figcaption>Работаем в связке с заказчиком</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="inc-h">
+    <div class="container">
+      <h2 class="h2 h2--sm" id="inc-h" style="margin-bottom:40px">Что входит в строительный контроль</h2>
+      <div class="grid grid--280">
+        {[
+          ['Входной контроль документации', 'Проверка рабочей документации и проектов производства работ.'],
+          ['Входной контроль материалов', 'Проверка документов о качестве и, при необходимости, испытания в нашей лаборатории.'],
+          ['Операционный контроль', 'Соблюдение технологии и последовательности работ на всех этапах.'],
+          ['Приёмка скрытых работ', 'Освидетельствование скрытых работ и ответственных конструкций.'],
+          ['Объёмы и качество', 'Проверка выполненных объёмов, выдача замечаний и контроль их устранения.'],
+          ['Проверка исполнительной документации', 'Проверяем ИД подрядчика на полноту и соответствие требованиям для сдачи объекта.'],
+        ].map(([t, d]) => <div class="card" style="border-radius:18px;padding:26px"><h3 class="card-title">{t}</h3><p style="margin:8px 0 0;color:var(--muted)">{d}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="container section" aria-labelledby="pp-h">
+    <div class="pp">
+      <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+        <div class="eyebrow eyebrow--on-ink">Расчёт стоимости</div>
+        <h2 class="h2 h2--sm" id="pp-h">По нормативу ПП РФ № 468</h2>
+        <p style="margin:0;color:var(--on-ink);font-size:17px">Затраты заказчика на строительный контроль считаются в процентах от стоимости строительства. Норматив задан в ценах 2000 года, поэтому стоимость объекта пересчитывается индексом Минстроя ({indices.period.replace('к ценам 01.01.2000', '').replace(/,\s*$/, '')}). Для коммерческих объектов цена договорная и может быть ниже.</p>
+        <a href="/kalkulyator?type=sk" class="btn btn--accent" style="align-self:flex-start">Рассчитать в калькуляторе <Icon name="arrow" size={18} width={2.2} /></a>
+      </div>
+      <div class="pp__ex">
+        <div style="font-size:13px;color:var(--on-ink-2);font-weight:700">ПРИМЕР</div>
+        <div style="font-weight:800;font-size:18px">Объект за 250 млн ₽ без НДС</div>
+        <dl class="pp__dl">
+          <dt>В ценах 2000 г.</dt><dd>250 / {econ.index.toLocaleString('ru-RU')} = {example.c2000.toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₽</dd>
+          <dt>Норматив</dt><dd>{example.percent.toLocaleString('ru-RU')} %</dd>
+          <dt>Численность</dt><dd>{example.staff} чел.</dd>
+        </dl>
+        <div style="border-top:1px solid var(--ink-line);padding-top:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline">
+          <span style="color:var(--on-ink)">Стоимость СК</span>
+          <span style="font-family:var(--f-display);font-size:26px;color:var(--accent);font-weight:600">{fmt(example.sum)}&nbsp;₽</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom:88px" aria-label="Дополнительные услуги">
+    <div class="grid grid--340">
+      <div class="card" style="border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:12px">
+        <h2 class="card-title card-title--lg">Своя аккредитованная лаборатория</h2>
+        <p style="margin:0;color:var(--text-2)">Испытания бетона, грунтов, нерудных материалов, асфальтобетона и сварных соединений выполняем сами — без сторонних подрядчиков и лишних сроков.</p>
+        <a href="/laboratoriya#scope" style="align-self:flex-start;margin-top:4px;font-weight:800">Область аккредитации</a>
+      </div>
+      <div class="card" style="border:2px solid var(--ink);border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:12px">
+        <div class="eyebrow">Дополнительная услуга</div>
+        <h2 class="card-title card-title--lg">Подготовка исполнительной документации</h2>
+        <p style="margin:0;color:var(--text-2)">Ведём и комплектуем ИД за подрядчика по <span class="nowrap">приказу Минстроя № 344/пр</span>: акты освидетельствования скрытых работ и ответственных конструкций, исполнительные схемы, общий и специальные журналы, реестр документации. Сдаём комплект для получения ЗОС.</p>
+        <div style="margin-top:auto;padding-top:8px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline">
+          <span style="font-family:var(--f-display);font-size:26px;font-weight:600">от {idocPercent(1e9).toLocaleString('ru-RU')} %</span><span style="color:var(--muted)">от стоимости строительства: до 100 млн ₽ — 1,4 %, до 500 млн ₽ — 1,05 %, свыше — 0,7 %</span>
+        </div>
+        <a href="/kalkulyator?type=sk&idoc=1" style="align-self:flex-start;font-weight:800">Рассчитать в калькуляторе</a>
+      </div>
+      <a href="/kontrol-monolita" class="card service-card" style="background:var(--accent);border-color:var(--accent);border-radius:24px;padding:32px;gap:12px">
+        <div class="eyebrow" style="color:var(--ink)">Отдельная услуга</div>
+        <h2 class="card-title card-title--lg">Нужен только контроль бетона?</h2>
+        <p style="color:var(--ink)">Сплошной контроль прочности монолитных конструкций — пакеты от 75&nbsp;000&nbsp;₽ в месяц.</p>
+        <span class="link-arrow">Подробнее <Icon name="arrow" size={18} width={2.2} /></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="team-h">
+    <div class="container">
+      <div class="section-head"><div class="eyebrow">Команда</div><h2 class="h2 h2--sm" id="team-h">Инженеры с допуском и собственная лаборатория</h2></div>
+      <div class="grid grid--240">
+        {[
+          ['Специалисты в НРС', 'Инженеры включены в Национальные реестры специалистов НОСТРОЙ и НОПРИЗ.'],
+          ['Ответственный инженер', 'За объектом закреплён инженер; численность — по нормативу ПП № 468.'],
+          ['Своя лаборатория', 'Испытания материалов — в собственной аккредитованной лаборатории, без субподряда.'],
+          ['Документы в срок', 'Предписания, акты и отчёты — в оговорённые сроки, замечания на контроле до устранения.'],
+        ].map(([t, d]) => <div class="card card--soft" style="padding:24px"><h3 class="card-title">{t}</h3><p style="margin:8px 0 0;color:var(--muted)">{d}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="container section" aria-labelledby="sro-h">
+    <div class="section-head"><div class="eyebrow">Документы</div><h2 class="h2 h2--sm" id="sro-h">Допуски СРО и аккредитация</h2></div>
+    <Docs only={['sro-st', 'sro-pr', 'sro-iz', 'akkr', 'nrs']} />
+  </section>
+
+  <CallbackSection title="Рассчитаем стоимость строительного контроля" text="Расскажите об объекте — перезвоним в течение 30 минут, консультация бесплатно." direction="Строительный контроль" />
+</Base>

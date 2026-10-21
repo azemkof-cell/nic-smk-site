@@ -1,0 +1,40 @@
+---
+import { contacts, phoneHref, emailHref } from '../lib/data';
+---
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__col">
+      <span style="font-weight:800;font-size:21px;color:#fff">НИЦ СМК</span>
+      <span style="font-size:14px">Научно-испытательный центр строительных материалов и конструкций</span>
+    </div>
+    <nav class="footer__col" aria-label="Услуги">
+      <span class="footer__h">УСЛУГИ</span>
+      <a href="/stroitelnyj-kontrol">Строительный контроль</a>
+      <a href="/kontrol-monolita">Контроль прочности монолита</a>
+      <a href="/laboratoriya">Испытательная лаборатория</a>
+      <a href="/elektrolaboratoriya">Электролаборатория</a>
+      <a href="/obsledovanie">Обследование зданий</a>
+      <a href="/kalkulyator">Калькулятор по объекту</a>
+      <a href="/ceny">Цены и пакеты</a>
+      <a href="/ceny/rascenki">Единичные расценки</a>
+    </nav>
+    <div class="footer__col">
+      <span class="footer__h">КОНТАКТЫ</span>
+      <a href={phoneHref} data-goal="phone_click">{contacts.phone}</a>
+      <a href={emailHref} data-goal="email_click">{contacts.email}</a>
+      <span>Лаборатория: {contacts.labAddress}</span>
+      <span>{contacts.hours}</span>
+      <a href="/kontakty">Контакты и реквизиты</a>
+    </div>
+    <div class="footer__col">
+      <span class="footer__h">РЕКВИЗИТЫ</span>
+      <span>ООО «НИЦ СМК»</span>
+      <span>ИНН 9715387698 / КПП 771501001</span>
+      <span>ОГРН 1207700275903</span>
+    </div>
+  </div>
+  <div class="container footer__bottom">
+    <span>© 2020–2026 ООО «НИЦ СМК» · ИНН 9715387698 · ОГРН 1207700275903</span>
+    <a href="/personalnye-dannye#politika">Политика конфиденциальности и персональные данные</a>
+  </div>
+</footer>

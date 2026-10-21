@@ -1,0 +1,17 @@
+# /etc/systemd/system/nic-smk.service
+[Unit]
+Description=Сайт НИЦ СМК (Astro + API)
+After=network-online.target
+
+[Service]
+User=nicsmk
+WorkingDirectory=/opt/nic-smk
+EnvironmentFile=/opt/nic-smk/.env
+ExecStart=/usr/bin/node /opt/nic-smk/server.mjs
+Restart=always
+RestartSec=3
+# секреты в .env читает только пользователь nicsmk
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

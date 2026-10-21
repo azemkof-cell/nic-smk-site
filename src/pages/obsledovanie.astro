@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Icon from '../components/Icon.astro';
+import Photo from '../components/Photo.astro';
+import InlineSvg from '../components/InlineSvg.astro';
+import CallbackSection from '../components/CallbackSection.astro';
+import mainImg from '../assets/img/site-obsledovanie.jpg';
+import usSvg from '../assets/img/obs-ultrasound.svg?raw';
+import crackSvg from '../assets/img/obs-crack.svg?raw';
+import coreSvg from '../assets/img/obs-core.svg?raw';
+import { surveyScale } from '../lib/calc';
+import { rateById } from '../lib/data';
+import { fmt } from '../lib/format';
+
+const crumbs = [{ name: 'Обследование зданий и сооружений', href: '/obsledovanie' }];
+const kinds = [
+  { t: 'Визуальный осмотр квартиры', d: 'Акт осмотра с фиксацией дефектов.', p: 'от ' + fmt(rateById(96)!.price) + ' ₽' },
+  { t: 'Обследование квартиры с техзаключением', d: 'Инструментальное обследование до 100 м², техническое заключение.', p: 'от ' + fmt(rateById(100)!.price) + ' ₽' },
+  { t: 'Обследование нежилого помещения', d: 'Визуальное или инструментальное, с актом или техническим заключением.', p: 'от ' + fmt(rateById(98)!.price) + ' ₽' },
+  { t: 'Здания и сооружения', d: 'Оценка технического состояния по ГОСТ 31937-2024; цена по шкале площади: 1 000 м² — ' + fmt(surveyScale(1000)) + ' ₽.', p: 'от ' + fmt(surveyScale(101)) + ' ₽' },
+  { t: 'Балконы, лоджии, козырьки', d: 'Отдельное обследование консольных конструкций.', p: 'от ' + fmt(rateById(103)!.price) + ' ₽' },
+  { t: 'Кровля и стропильная система', d: 'Состояние несущих элементов кровли и покрытия.', p: 'от ' + fmt(rateById(104)!.price) + ' ₽' },
+];
+const schema = [{ '@context': 'https://schema.org', '@type': 'Service', name: 'Обследование зданий и сооружений', provider: { '@id': 'https://nic-smk.ru/#org' }, areaServed: 'Москва и Московская область' }];
+---
+<Base title="Обследование зданий и сооружений — НИЦ СМК" description="Техническое обследование зданий, сооружений, квартир и нежилых помещений по ГОСТ 31937-2024. Дефекты, испытания, технический отчёт. Цена онлайн." crumbs={crumbs} schema={schema}>
+  <section class="container" style="padding-top:40px;padding-bottom:72px">
+    <Crumbs items={crumbs} />
+    <div class="split" style="margin-top:32px">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <span class="eyebrow">Направление</span>
+        <h1 class="h1 h1--md">Обследование зданий и сооружений</h1>
+        <p class="lead" style="max-width:600px">Техническое обследование зданий, сооружений и нежилых помещений: выявляем дефекты, оцениваем состояние конструкций и готовим официальный технический отчёт.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <a href="/kalkulyator?type=survey" class="btn btn--accent btn--lg">Рассчитать стоимость</a>
+          <a href="#zayavka" class="btn btn--outline btn--lg">Заказать обследование</a>
+        </div>
+      </div>
+      <div class="obs-col">
+        <figure class="photo" style="grid-column:span 3;aspect-ratio:16/10">
+          <Photo src={mainImg} alt="Инженер фиксирует трещину в бетонной стене" eager sizes="(max-width: 980px) 100vw, 600px" />
+          <figcaption>Визуальный осмотр и фиксация дефектов</figcaption>
+        </figure>
+        <figure class="photo svg-fig obs-sq"><InlineSvg raw={usSvg} label="Ультразвуковой прибор измеряет прочность бетона" /><figcaption class="obs-cap">Прочность бетона</figcaption></figure>
+        <figure class="photo svg-fig obs-sq"><InlineSvg raw={crackSvg} label="Измерение ширины раскрытия трещины" /><figcaption class="obs-cap">Трещины</figcaption></figure>
+        <figure class="photo svg-fig obs-sq"><InlineSvg raw={coreSvg} label="Керн бетона, отобранный из конструкции" /><figcaption class="obs-cap obs-cap--top">Отбор кернов</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="k-h">
+    <div class="container">
+      <div class="section-head section-head--row">
+        <h2 class="h2 h2--sm" id="k-h">Виды обследований</h2>
+        <span class="vat-badge" style="font-size:16px">Цены без НДС</span>
+      </div>
+      <div class="grid grid--280">
+        {kinds.map((k) => (
+          <div class="card card--soft" style="display:flex;flex-direction:column;gap:8px">
+            <h3 class="card-title">{k.t}</h3>
+            <p style="margin:0;color:var(--muted)">{k.d}</p>
+            <div style="margin-top:auto;padding-top:6px;font-weight:800;font-size:19px">{k.p}</div>
+          </div>
+        ))}
+      </div>
+      <a href="/kalkulyator?type=survey" class="btn btn--dark" style="margin-top:24px">Посчитать по площади <Icon name="arrow" size={18} width={2.2} /></a>
+    </div>
+  </section>
+
+  <section class="container section" aria-labelledby="in-h">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:48px">
+      <div>
+        <h2 class="h2 h2--sm" id="in-h" style="margin-bottom:24px">Что входит в работу</h2>
+        <ol style="margin:0;padding:0;list-style:none;border-top:1px solid #D5D5CE">
+          {['Обследование строительных конструкций на объекте', 'Выявление и фиксация дефектов', 'Отбор проб и испытания в аккредитованной лаборатории', 'Анализ технического состояния конструкций', 'Официальный технический отчёт с рекомендациями'].map((t, i) => (
+            <li style="padding:18px 0;border-bottom:1px solid #D5D5CE;display:flex;gap:16px"><span style="font-family:var(--f-display);color:var(--accent-ink)" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><span style="font-weight:700">{t}</span></li>
+          ))}
+        </ol>
+      </div>
+      <div class="on-ink" style="border-radius:24px;padding:36px;display:flex;flex-direction:column;gap:16px;align-self:start">
+        <Icon name="doc" size={40} stroke="#F5C02B" width={1.6} />
+        <h2 style="margin:0;font-size:22px;font-weight:800">Результат — технический отчёт</h2>
+        <p style="margin:0;color:var(--on-ink)">Описание конструкций, ведомость дефектов, результаты испытаний, оценка технического состояния и рекомендации по устранению замечаний.</p>
+        <a href="#zayavka" class="btn btn--accent" style="align-self:flex-start;margin-top:8px">Обсудить объект</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" style="border-bottom:0" aria-labelledby="wh-h">
+    <div class="container">
+      <h2 class="h2 h2--sm" id="wh-h" style="margin-bottom:40px">Когда нужно обследование</h2>
+      <div class="grid grid--260">
+        {[
+          ['Покупка или аренда', 'Оценить реальное состояние здания или помещения до сделки.'],
+          ['Реконструкция', 'Получить исходные данные для проектирования и перепланировки.'],
+          ['Дефекты и трещины', 'Найти причины повреждений и понять, насколько они опасны.'],
+          ['Спорные ситуации', 'Подтвердить качество работ подрядчика документально.'],
+        ].map(([t, d]) => <div class="card card--soft"><h3 class="card-title">{t}</h3><p style="margin:8px 0 0;color:var(--muted)">{d}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <CallbackSection title="Оценим объём обследования бесплатно" text="Опишите объект — перезвоним за 30 минут. Или укажите площадь и вид обследования в калькуляторе — КП сформируется сразу." direction="Обследование здания" />
+</Base>

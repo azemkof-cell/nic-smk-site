@@ -1,0 +1,20 @@
+---
+import CallbackForm from './islands/CallbackForm';
+import { contacts, social } from '../lib/data';
+interface Props { title?: string; text?: string; direction?: string; id?: string }
+const { title = 'Остались вопросы? Перезвоним за 30 минут', text = 'Опишите объект и задачу — подберём состав работ и бесплатно проконсультируем.', direction, id = 'zayavka' } = Astro.props;
+---
+<section class="container" id={id} style="padding-top:56px;padding-bottom:104px;scroll-margin-top:80px" aria-labelledby={id + '-h'}>
+  <div class="cta-form">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <h2 class="h2 h2--sm" id={id + '-h'} style="font-size:clamp(26px,3vw,40px)">{title}</h2>
+      <p style="margin:0;color:var(--on-ink);font-size:17px">{text}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px">
+        <a href={social.telegram} class="btn btn--ghost btn--sm" rel="noopener">Telegram</a>
+        <a href={social.whatsapp} class="btn btn--ghost btn--sm" rel="noopener">WhatsApp</a>
+        <a href={social.max} class="btn btn--ghost btn--sm" rel="noopener">MAX</a>
+      </div>
+    </div>
+    <CallbackForm client:visible source="callback" phone={contacts.phone} direction={direction} />
+  </div>
+</section>

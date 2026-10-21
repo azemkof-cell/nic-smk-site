@@ -1,0 +1,63 @@
+---
+import Icon from './Icon.astro';
+import { NAV, isActive } from '../lib/nav';
+import { contacts, phoneHref, emailHref, social } from '../lib/data';
+const path = Astro.url.pathname;
+---
+<div class="topbar">
+  <div class="container topbar__in">
+    <span class="hide-s">Лаборатория: Москва, ул. Вилюйская, д. 11, стр. 3 · {contacts.hours}</span>
+    <div class="topbar__links">
+      <a href={phoneHref} class="topbar__phone" data-goal="phone_click">{contacts.phone}</a>
+      <a href={emailHref} class="hide-s" data-goal="email_click">{contacts.email}</a>
+      <a href={social.telegram} class="hide-s" rel="noopener">Telegram</a>
+      <a href={social.whatsapp} class="hide-s" rel="noopener">WhatsApp</a>
+      <a href={social.max} class="hide-s" rel="noopener">MAX</a>
+    </div>
+  </div>
+</div>
+<header class="header" id="top">
+  <div class="container header__in">
+    <a href="/" class="logo" aria-label="НИЦ СМК — на главную">
+      <span class="logo__mark"><Icon name="home" stroke="#14171A" /></span>
+      <span class="logo__text">НИЦ СМК</span>
+    </a>
+    <nav class="nav" aria-label="Основное меню">
+      {NAV.map((n) => <a href={n.href} aria-current={isActive(path, n.href) ? 'page' : undefined}>{n.label}</a>)}
+    </nav>
+    <a href="/kalkulyator" class="btn btn--accent header__cta"><span class="cta-long">Получить предложение</span><span class="cta-short">Получить КП</span></a>
+    <button type="button" class="burger" aria-expanded="false" aria-controls="mnav" aria-label="Открыть меню" data-burger>
+      <Icon name="menu" size={22} width={2.2} />
+    </button>
+    <nav id="mnav" class="mnav" aria-label="Меню">
+      {NAV.map((n) => <a href={n.href} aria-current={isActive(path, n.href) ? 'page' : undefined}>{n.label}</a>)}
+      <a href="/kalkulyator" class="btn btn--accent">Получить предложение</a>
+      <a href={phoneHref} class="btn btn--outline" data-goal="phone_click">{contacts.phone}</a>
+    </nav>
+  </div>
+</header>
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-burger]');
+  const panel = document.getElementById('mnav');
+  if (btn && panel) {
+    const set = (open: boolean) => {
+      panel.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    };
+    btn.addEventListener('click', () => set(!panel.classList.contains('is-open')));
+    panel.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) set(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.classList.contains('is-open')) {
+        set(false);
+        btn.focus();
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (panel.classList.contains('is-open') && !(e.target as HTMLElement).closest('.header')) set(false);
+    });
+    matchMedia('(min-width: 1121px)').addEventListener('change', (m) => m.matches && set(false));
+  }
+</script>

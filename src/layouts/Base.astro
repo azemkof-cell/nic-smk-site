@@ -1,0 +1,133 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { contacts, social } from '../lib/data';
+
+export interface Crumb { name: string; href: string }
+interface Props {
+  title: string;
+  description: string;
+  crumbs?: Crumb[];
+  schema?: Record<string, unknown>[];
+  ogImage?: string;
+  noindex?: boolean;
+}
+const { title, description, crumbs = [], schema = [], ogImage = '/og.jpg', noindex = false } = Astro.props;
+const site = Astro.site!.toString().replace(/\/$/, '');
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '') || '/';
+const canonical = site + (path === '/' ? '/' : path.replace(/\/$/, ''));
+// Счётчик Метрики НИЦ СМК; загружается только после «Принять» в cookie-баннере
+const ymId = import.meta.env.PUBLIC_YM_ID ?? '113721593';
+
+const org = {
+  '@context': 'https://schema.org',
+  '@type': ['Organization', 'LocalBusiness'],
+  '@id': site + '/#org',
+  name: 'ООО «НИЦ СМК»',
+  legalName: 'Общество с ограниченной ответственностью «Научно-испытательный центр строительных материалов и конструкций»',
+  url: site + '/',
+  logo: site + '/favicon.svg',
+  image: site + '/og.jpg',
+  telephone: '+79160065206',
+  email: contacts.email,
+  taxID: '9715387698',
+  address: { '@type': 'PostalAddress', streetAddress: 'ул. Вилюйская, д. 11, стр. 3', postalCode: '127081', addressLocality: 'Москва', addressCountry: 'RU' },
+  openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '18:00' }],
+  areaServed: ['Москва', 'Московская область'],
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.3', bestRating: '5' },
+  sameAs: [social.telegram, social.yandexMaps],
+};
+const breadcrumbs = crumbs.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [{ name: 'Главная', href: '/' }, ...crumbs].map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: site + (c.href === '/' ? '/' : c.href) })),
+    }
+  : null;
+const ld = [org, breadcrumbs, ...schema].filter(Boolean);
+---
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta name="theme-color" content="#14171A" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preload" href="/fonts/font-Unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/font-Manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content="НИЦ СМК" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={site + ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script is:inline define:vars={{ ymId }}>window.__YM_ID = ymId ? Number(ymId) : 0;</script>
+</head>
+<body>
+  <a href="#main" class="skip">Перейти к содержимому</a>
+  <Header />
+  <main id="main" tabindex="-1">
+    <slot />
+  </main>
+  <Footer />
+  {ld.map((x) => <script type="application/ld+json" set:html={JSON.stringify(x)} />)}
+
+  <div class="cookie" id="cookie" role="dialog" aria-live="polite" aria-label="Файлы cookie" hidden>
+    <p>Мы используем cookie: необходимые — чтобы работали формы и калькулятор, аналитические («Яндекс Метрика») — только с вашего согласия. <a href="/personalnye-dannye#politika">Подробнее</a></p>
+    <div class="cookie__btns">
+      <button type="button" class="btn btn--accent btn--sm" data-cookie="all">Принять</button>
+      <button type="button" class="btn btn--outline btn--sm" data-cookie="necessary">Только необходимые</button>
+    </div>
+  </div>
+
+  <script>
+    const KEY = 'nicsmk.cookie';
+    const box = document.getElementById('cookie')!;
+    let choice: string | null = null;
+    try { choice = localStorage.getItem(KEY); } catch { /* приватный режим */ }
+
+    function loadMetrika() {
+      const id = window.__YM_ID;
+      if (!id || window.ym) return;
+      const w = window as unknown as { ym: { (...a: unknown[]): void; a?: unknown[]; l?: number } };
+      w.ym = function (...a: unknown[]) { (w.ym.a = w.ym.a || []).push(a); };
+      w.ym.l = Date.now();
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://mc.yandex.ru/metrika/tag.js';
+      document.head.appendChild(s);
+      // Вебвизор включён; содержимое полей форм не записывается (настройка счётчика по умолчанию)
+      w.ym(id, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true });
+    }
+
+    if (choice === 'all') loadMetrika();
+    else if (!choice) box.hidden = false;
+    box.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLElement>('[data-cookie]');
+      if (!b) return;
+      const v = b.dataset.cookie!;
+      try { localStorage.setItem(KEY, v); } catch { /* ignore */ }
+      box.hidden = true;
+      if (v === 'all') loadMetrika();
+    });
+
+    // Цели: клики по телефону и почте
+    document.addEventListener('click', (e) => {
+      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="tel:"],a[href^="mailto:"]');
+      if (!a || !window.ym || !window.__YM_ID) return;
+      window.ym(window.__YM_ID, 'reachGoal', a.href.startsWith('tel:') ? 'phone_click' : 'email_click');
+    });
+  </script>
+</body>
+</html>

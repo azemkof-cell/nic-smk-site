@@ -1,0 +1,11 @@
+---
+interface Props { title: string; text: string; href: string; button: string; dark?: boolean }
+const { title, text, href, button, dark = false } = Astro.props;
+---
+<div class={'cta ' + (dark ? 'cta--dark' : 'cta--accent')}>
+  <div style="max-width:640px">
+    <h2 class="h2 h2--cta">{title}</h2>
+    <p>{text}</p>
+  </div>
+  <a href={href} class={'btn btn--lg ' + (dark ? 'btn--accent' : 'btn--dark')}>{button}</a>
+</div>

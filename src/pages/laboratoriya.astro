@@ -1,0 +1,168 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Icon from '../components/Icon.astro';
+import Steps from '../components/Steps.astro';
+import CallbackSection from '../components/CallbackSection.astro';
+import LabScope from '../components/islands/LabScope';
+import { getImage } from 'astro:assets';
+import { rateViews } from '../lib/data';
+import { fmt } from '../lib/format';
+import g1 from '../assets/img/lab-964eb733.jpg';
+import g2 from '../assets/img/lab-19863109.jpg';
+import g3 from '../assets/img/lab-1ef186d0.jpg';
+import g4 from '../assets/img/lab-4caaa27e.jpg';
+import g5 from '../assets/img/lab-eb3896da.jpg';
+import g6 from '../assets/img/lab-ade0e78b.jpg';
+
+const crumbs = [{ name: 'Испытательная лаборатория', href: '/laboratoriya' }];
+const gallery = [
+  { src: g1, alt: 'Общий вид испытательной лаборатории', span: 'grid-column:span 2;grid-row:span 2' },
+  { src: g2, alt: 'Рабочее место лаборанта с оборудованием', span: 'grid-row:span 2' },
+  { src: g3, alt: 'Испытательная установка', span: 'grid-row:span 2' },
+  { src: g4, alt: 'Испытательный пресс', span: '' },
+  { src: g5, alt: 'Керны и образцы бетона', span: '' },
+  { src: g6, alt: 'Помещение лаборатории с оборудованием', span: 'grid-column:span 2' },
+];
+const imgs = await Promise.all(
+  gallery.map(async (g) => ({
+    ...g,
+    thumb: await getImage({ src: g.src, width: 640, format: 'webp' }),
+    full: await getImage({ src: g.src, width: Math.min(1600, g.src.width), format: 'webp' }),
+  })),
+);
+const groups = [
+  { id: 'beton', label: 'Бетон и железобетон', items: ['Смеси бетонные', 'Бетоны тяжёлые и мелкозернистые; бетонные и железобетонные конструкции и изделия', 'Конструкции бетонные и железобетонные для колодцев канализационных, водопроводных и газопроводных сетей', 'Растворы строительные', 'Цементы'] },
+  { id: 'nerud', label: 'Нерудные материалы и грунты', items: ['Песок для строительных работ', 'Щебень и гравий из плотных горных пород для строительных работ', 'Щебень и гравий из горных пород', 'Порошок минеральный', 'Смеси щебёночно-гравийно-песчаные для покрытий и оснований автомобильных дорог и аэродромов', 'Смеси щебёночно-гравийно-песчаные и грунты, обработанные неорганическими вяжущими материалами', 'Грунты', 'Противогололёдные материалы (ПГМ)'] },
+  { id: 'asfalt', label: 'Асфальтобетон и дороги', items: ['Смеси асфальтобетонные и полимерасфальтобетонные; асфальтобетон и полимерасфальтобетон; асфальтобетон щебёночно-мастичный', 'Смеси асфальтобетонные дорожные и асфальтобетон щебёночно-мастичный', 'Смеси горячие асфальтобетонные и асфальтобетон по системе объёмно-функционального проектирования Superpave', 'Смеси щебёночно-мастичные асфальтобетонные и асфальтобетон по системе Superpave', 'Асфальтобетон дорожный литой горячий', 'Гранулят старого асфальтобетона', 'Смесь асфальтогранулобетонная и асфальтогранулобетон', 'Смеси органоминеральные холодные с использованием переработанного асфальтобетона (РАП)', 'Дороги автомобильные: основания и покрытия', 'Разметка дорожная, знаки дорожные'] },
+  { id: 'metall', label: 'Металл и сварка', items: ['Металлические конструкции; сварные швы соединений металлоконструкций и железобетонных конструкций', 'Сталь арматурная; арматурные и закладные изделия, их сварные соединения', 'Крепёжные изделия для строительно-монтажных работ'] },
+  { id: 'krovlya', label: 'Кровля и стеновые материалы', items: ['Материалы рулонные кровельные и гидроизоляционные', 'Кирпич и камни керамические и силикатные'] },
+];
+// Популярные испытания — цены из rates.json
+const popular = [10, 1, 9, 8, 13, 15, 26, 20, 49, 50, 68, 108, 73, 72, 117].map((id) => rateViews.find((r) => r.id === id)!).filter(Boolean);
+const schema = [{
+  '@context': 'https://schema.org', '@type': 'OfferCatalog', name: 'Испытания строительных материалов',
+  itemListElement: popular.map((r) => ({ '@type': 'Offer', name: r.name, price: r.price, priceCurrency: 'RUB', description: (r.priceFrom ? 'от ' : '') + fmt(r.price) + ' ₽ за ' + r.unit + ', без НДС' })),
+}];
+---
+<Base title="Испытательная лаборатория в Москве — НИЦ СМК" description="Аккредитованная испытательная лаборатория (RU.АСК.ИЛ.1132): бетон, грунты, щебень, асфальтобетон, металл и сварка. Цены на испытания и протоколы." crumbs={crumbs} schema={schema}>
+  <section class="on-ink">
+    <div class="container" style="padding-top:40px;padding-bottom:88px">
+      <Crumbs items={crumbs} />
+      <div class="split" style="margin-top:36px">
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <span class="eyebrow">Испытательная лаборатория ООО «НИЦ СМК»</span>
+          <h1 class="h1" style="font-size:clamp(28px,3.6vw,50px)">Аккредитованная испытательная лаборатория</h1>
+          <p class="lead" style="max-width:600px">Испытания строительных материалов, изделий и конструкций в пределах области аккредитации. По результатам выдаём протоколы испытаний.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px">
+            <a href="/ceny/rascenki" class="btn btn--accent btn--lg">Цены на испытания</a>
+            <a href="#scope" class="btn btn--ghost btn--lg">Область аккредитации</a>
+          </div>
+        </div>
+        <div class="comp-card" style="border-radius:24px">
+          <h2 style="margin:0;font-size:20px;font-weight:800">Аттестат аккредитации</h2>
+          <dl class="kv">
+            <dt>Номер</dt><dd>RU.АСК.ИЛ.1132</dd>
+            <dt>Дата выдачи</dt><dd>29.12.2022</dd>
+            <dt>Подтверждён</dt><dd>29.12.2024</dd>
+            <dt>Выдан</dt><dd>АО «Система АКСЕКО»</dd>
+            <dt>Стандарт</dt><dd>ГОСТ ISO/IEC 17025-2019</dd>
+            <dt>Адрес лаборатории</dt><dd>127081, г. Москва, ул. Вилюйская, д. 11, стр. 3</dd>
+          </dl>
+          <a href="https://pub.fsa.gov.ru/ral" rel="noopener" target="_blank" style="color:var(--accent);font-weight:700;font-size:14px">Проверить в реестре ФСА <span class="sr-only">(откроется в новой вкладке)</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" style="padding-top:88px" aria-labelledby="gal-h">
+    <div class="section-head section-head--row" style="margin-bottom:28px">
+      <h2 class="h2 h2--sm" id="gal-h">Наша лаборатория</h2>
+      <p style="margin:0;color:var(--muted);max-width:460px">Собственное испытательное оборудование: прессы, климатические камеры, оборудование для испытания грунтов и нерудных материалов.</p>
+    </div>
+    <ul class="labgal" style="margin:0;padding:0;list-style:none" data-gallery>
+      {imgs.map((g, i) => (
+        <li style={g.span}>
+          <button type="button" data-full={g.full.src} data-alt={g.alt} aria-label={'Открыть фото: ' + g.alt}>
+            <img src={g.thumb.src} alt={g.alt} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" width="640" height={Math.round(640 * g.src.height / g.src.width)} />
+          </button>
+        </li>
+      ))}
+    </ul>
+    <dialog class="lightbox" aria-label="Просмотр фото" data-lightbox>
+      <img src="" alt="" />
+      <p></p>
+      <button type="button" class="lightbox__nav lightbox__nav--prev" aria-label="Предыдущее фото" data-prev>‹</button>
+      <button type="button" class="lightbox__nav lightbox__nav--next" aria-label="Следующее фото" data-next>›</button>
+      <button type="button" class="lightbox__close" aria-label="Закрыть" data-close>×</button>
+    </dialog>
+  </section>
+
+  <section class="container" style="padding-top:88px" aria-labelledby="pr-h">
+    <div class="section-head section-head--row" style="margin-bottom:28px">
+      <div><div class="eyebrow">Цены</div><h2 class="h2 h2--sm" id="pr-h" style="margin-top:10px">Испытания с ценами</h2></div>
+      <span class="vat-badge">Все цены без НДС</span>
+    </div>
+    <div class="rows" style="padding-top:0;padding-bottom:0">
+      {popular.map((r) => (
+        <div class="row" style="flex-wrap:wrap;align-items:center;gap:8px 20px">
+          <div style="flex:999 1 320px;min-width:0">
+            <div style="font-weight:600">{r.name}</div>
+            <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;font-size:13px">{r.norm && <span class="tag">{r.norm}</span>}<span class="tag">за {r.unit}</span></div>
+          </div>
+          <div style="margin-left:auto;font-weight:800;font-size:19px;white-space:nowrap">{r.priceFrom && <span style="font-size:13px;color:#6B7076;margin-right:4px">от</span>}{fmt(r.price)}&nbsp;₽</div>
+        </div>
+      ))}
+    </div>
+    <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:12px">
+      <a href="/ceny/rascenki" class="btn btn--dark">Все 138 расценок <Icon name="arrow" size={18} width={2.2} /></a>
+      <a href="/kalkulyator?type=concrete" class="btn btn--outline">Рассчитать по объекту</a>
+    </div>
+  </section>
+
+  <section id="scope" class="container section" style="scroll-margin-top:80px" aria-labelledby="scope-h">
+    <h2 class="h2 h2--sm" id="scope-h">Область аккредитации</h2>
+    <p style="margin:10px 0 32px;color:var(--muted);max-width:680px">28 объектов испытаний. Выберите группу, чтобы увидеть перечень.</p>
+    <LabScope client:visible groups={groups} />
+    <p style="margin:16px 0 0;font-size:14px;color:var(--muted)">Полный перечень определяемых показателей и методов испытаний — в приложении к аттестату аккредитации. Предоставим по запросу.</p>
+  </section>
+
+  <section class="section section--white" aria-labelledby="ord-h">
+    <div class="container">
+      <h2 class="h2 h2--sm" id="ord-h" style="margin-bottom:40px">Порядок проведения испытаний</h2>
+      <Steps soft min={240} items={[
+        ['Заявка', 'Согласуем перечень испытаний и сроки.'],
+        ['Отбор проб', 'Отбираем пробы на объекте или принимаем образцы в лаборатории.'],
+        ['Испытания', 'Проводим испытания по методикам, указанным в области аккредитации.'],
+        ['Протокол', 'Выдаём протокол испытаний.'],
+      ]} />
+    </div>
+  </section>
+
+  <CallbackSection title="Нужны испытания?" text="Опишите материал и объём — подберём испытания и перезвоним в течение 30 минут. Или выберите объект в калькуляторе: состав испытаний и КП сформируются сразу." direction="Лабораторные испытания" />
+</Base>
+
+<script>
+  const list = document.querySelector('[data-gallery]');
+  const dlg = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+  if (list && dlg) {
+    const btns = [...list.querySelectorAll<HTMLButtonElement>('button[data-full]')];
+    const img = dlg.querySelector('img')!;
+    const cap = dlg.querySelector('p')!;
+    let cur = 0;
+    let opener: HTMLElement | null = null;
+    const show = (i: number) => {
+      cur = (i + btns.length) % btns.length;
+      img.src = btns[cur].dataset.full!;
+      img.alt = btns[cur].dataset.alt!;
+      cap.textContent = btns[cur].dataset.alt! + ' · ' + (cur + 1) + ' / ' + btns.length;
+    };
+    btns.forEach((b, i) => b.addEventListener('click', () => { opener = b; show(i); dlg.showModal(); }));
+    dlg.querySelector('[data-prev]')!.addEventListener('click', () => show(cur - 1));
+    dlg.querySelector('[data-next]')!.addEventListener('click', () => show(cur + 1));
+    dlg.querySelector('[data-close]')!.addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') show(cur - 1); if (e.key === 'ArrowRight') show(cur + 1); });
+    dlg.addEventListener('close', () => opener?.focus());
+  }
+</script>

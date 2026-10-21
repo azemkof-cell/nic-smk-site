@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import PriceTabs from '../../components/PriceTabs.astro';
+import Rates from '../../components/islands/Rates';
+import { contacts, rateSections, rates } from '../../lib/data';
+import { fmt } from '../../lib/format';
+
+const crumbs = [{ name: 'Цены', href: '/ceny' }, { name: 'Единичные расценки', href: '/ceny/rascenki' }];
+const schema = [{
+  '@context': 'https://schema.org', '@type': 'OfferCatalog', name: 'Единичные расценки на испытания и работы, 2026 год, без НДС',
+  itemListElement: rateSections.map((s) => ({
+    '@type': 'OfferCatalog', name: s.title,
+    itemListElement: s.subs.flatMap((g) => g.rows).map((r) => ({ '@type': 'Offer', name: r.name, price: r.price, priceCurrency: 'RUB', description: (r.priceFrom ? 'от ' : '') + fmt(r.price) + ' ₽ за ' + r.unit + (r.norm ? ', ' + r.norm : '') })),
+  })),
+}];
+---
+<Base title="Единичные расценки на испытания 2026 — НИЦ СМК" description={`Прайс-лист 2026: ${rates.length} позиций — бетон, грунты, дороги, сварка, покрытия, обследование, анкеры, лестницы. Все цены без НДС, расчёт и КП онлайн.`} crumbs={crumbs} schema={schema}>
+  <section class="container" style="padding-top:36px;padding-bottom:24px">
+    <Crumbs items={crumbs} />
+    <PriceTabs />
+    <div style="margin-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 32px">
+      <div style="max-width:720px">
+        <h1 class="h1 h1--sm">Единичные расценки на испытания и работы</h1>
+        <p style="margin:14px 0 0;font-size:17px;color:var(--text-2)">Выберите испытания, впишите объёмы — калькулятор сразу покажет стоимость. Отправьте расчёт, и мы подтвердим цену и сроки за 30 минут.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+        <span class="vat-badge">Все цены указаны без НДС</span>
+        <span style="font-size:14px;color:var(--muted)">Прайс-лист на 2026 год · Аттестат аккредитации № RU.АСК.ИЛ.1132</span>
+      </div>
+    </div>
+  </section>
+  <section class="container" style="padding-top:8px;padding-bottom:96px">
+    <Rates client:load phone={contacts.phone} />
+  </section>
+</Base>
