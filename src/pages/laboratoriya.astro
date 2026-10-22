@@ -69,7 +69,11 @@ const schema = [{
             <dt>Стандарт</dt><dd>ГОСТ ISO/IEC 17025-2019</dd>
             <dt>Адрес лаборатории</dt><dd>127081, г. Москва, ул. Вилюйская, д. 11, стр. 3</dd>
           </dl>
-          <a href="https://pub.fsa.gov.ru/ral" rel="noopener" target="_blank" style="color:var(--accent);font-weight:700;font-size:14px">Проверить в реестре ФСА <span class="sr-only">(откроется в новой вкладке)</span></a>
+          <div style="display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;font-weight:700">
+            <a href="/docs/attestat-akkreditacii.pdf" style="color:var(--accent)">Аттестат (PDF)</a>
+            <a href="/docs/oblast-akkreditacii.pdf" style="color:var(--accent)">Область аккредитации (PDF)</a>
+            <a href="https://pub.fsa.gov.ru/ral" rel="noopener" target="_blank" style="color:var(--accent)">Проверить в реестре ФСА <span class="sr-only">(откроется в новой вкладке)</span></a>
+          </div>
         </div>
       </div>
     </div>
@@ -124,7 +128,7 @@ const schema = [{
     <h2 class="h2 h2--sm" id="scope-h">Область аккредитации</h2>
     <p style="margin:10px 0 32px;color:var(--muted);max-width:680px">28 объектов испытаний. Выберите группу, чтобы увидеть перечень.</p>
     <LabScope client:visible groups={groups} />
-    <p style="margin:16px 0 0;font-size:14px;color:var(--muted)">Полный перечень определяемых показателей и методов испытаний — в приложении к аттестату аккредитации. Предоставим по запросу.</p>
+    <p style="margin:16px 0 0;font-size:14px;color:var(--muted)">Полный перечень определяемых показателей и методов испытаний — в приложении к аттестату аккредитации: <a href="/docs/oblast-akkreditacii.pdf" style="font-weight:700">область аккредитации (PDF, 14 стр.)</a>.</p>
   </section>
 
   <section class="section section--white" aria-labelledby="ord-h">
