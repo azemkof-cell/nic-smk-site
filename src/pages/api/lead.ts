@@ -89,6 +89,13 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     .filter(Boolean)
     .join('\n');
 
+  // Уведомления — в фоне: клиент сразу получает ответ, сбой почты/Telegram не роняет заявку (она уже в журнале)
+  void notify(subject, text, kp, email, lead.name);
+
+  return json({ ok: true, kp: kp ? { no: kp.no, date: kp.date, token } : undefined });
+};
+
+async function notify(subject: string, text: string, kp: Kp | null, email: string, name: string) {
   let pdf: Attachment | undefined;
   if (kp) {
     try {
@@ -98,9 +105,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     }
   }
   const tasks: Promise<unknown>[] = [sendMail(MAIL_TO, subject, text, pdf ? [pdf] : []), sendTelegram(text, pdf)];
-  if (kp && email && pdf) tasks.push(sendMail(email, `Коммерческое предложение ${kp.no} — ООО «НИЦ СМК»`, `Здравствуйте${lead.name ? ', ' + lead.name : ''}!\n\nВо вложении коммерческое предложение ${kp.no}. Инженер свяжется с вами в рабочее время.\n\nООО «НИЦ СМК»\n+7 (916) 006-52-06 · ooo.nic-smk@yandex.ru`, [pdf]));
+  if (kp && email && pdf)
+    tasks.push(sendMail(email, `Коммерческое предложение ${kp.no} — ООО «НИЦ СМК»`, `Здравствуйте${name ? ', ' + name : ''}!\n\nВо вложении коммерческое предложение ${kp.no}. Инженер свяжется с вами в рабочее время.\n\nООО «НИЦ СМК»\n+7 (916) 006-52-06 · ooo.nic-smk@yandex.ru`, [pdf]));
   const results = await Promise.allSettled(tasks);
-  results.forEach((r) => r.status === 'rejected' && console.error('[notify]', r.reason));
-
-  return json({ ok: true, kp: kp ? { no: kp.no, date: kp.date, token } : undefined });
-};
+  results.forEach((r) => r.status === 'rejected' && console.error('[mail]', r.reason));
+}

@@ -3,7 +3,8 @@
 // 2) На сервере: TG_BOT_TOKEN=... node scripts/tg-chat-id.mjs   (или node --env-file=.env scripts/tg-chat-id.mjs)
 const token = process.env.TG_BOT_TOKEN;
 if (!token) { console.error('Задайте TG_BOT_TOKEN'); process.exit(1); }
-const r = await fetch(`https://api.telegram.org/bot${token}/getUpdates`).then((x) => x.json());
+const base = (process.env.TG_API_BASE || 'https://api.telegram.org').replace(/\/$/, '');
+const r = await fetch(`${base}/bot${token}/getUpdates`, { signal: AbortSignal.timeout(10000) }).then((x) => x.json()).catch((e) => { console.error('api.telegram.org недоступен:', e.cause?.code || e.name); process.exit(2); });
 if (!r.ok) { console.error('Ошибка Telegram:', r.description); process.exit(1); }
 const chats = new Map();
 for (const u of r.result) {

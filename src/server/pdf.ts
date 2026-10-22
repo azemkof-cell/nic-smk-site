@@ -32,9 +32,11 @@ async function getBrowser(): Promise<Browser> {
   if (!browser) {
     browser = (async () => {
       const { chromium } = await import('playwright-core');
-      const candidates = [process.env.CHROMIUM_PATH, '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser', '/usr/bin/google-chrome'].filter(Boolean) as string[];
+      const candidates = [process.env.CHROMIUM_PATH, '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', '/usr/bin/google-chrome-stable', '/usr/bin/google-chrome', '/opt/google/chrome/chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'].filter(Boolean) as string[];
       const executablePath = candidates.find((p) => fs.existsSync(p));
-      return chromium.launch({ executablePath, args: ['--no-sandbox', '--font-render-hinting=none'] });
+      const b = await chromium.launch({ executablePath, args: ['--no-sandbox', '--font-render-hinting=none', '--disable-dev-shm-usage'] });
+      b.on('disconnected', () => (browser = null));
+      return b;
     })();
     browser.catch(() => (browser = null));
   }
