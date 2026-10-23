@@ -21,6 +21,17 @@ warn() { printf '\033[1;31m! %s\033[0m\n' "$*"; }
 pause(){ read -r -p "$* [Enter — продолжить] " _; }
 mark() { touch "$STATE/$1"; }
 done_(){ [ -f "$STATE/$1" ]; }
+# apt занят (например, автообновления запустились сразу после включения) — ждём, а не падаем
+wait_apt() {
+  local n=0
+  # unattended-upgrade-shutdown работает постоянно — его не ждём, только сам прогон обновлений и apt/dpkg
+  while pgrep -x 'apt|apt-get|dpkg' >/dev/null 2>&1 || pgrep -f '^/usr/bin/python3 /usr/bin/unattended-upgrade( |$)' >/dev/null 2>&1; do
+    [ $n = 0 ] && echo "Жду, пока завершится другой процесс apt/dpkg (автообновления)…"
+    n=$((n + 1)); sleep 5
+    [ $n -gt 360 ] && { warn "apt занят больше 30 минут"; break; }
+  done
+}
+apt_get() { wait_apt; apt-get -o DPkg::Lock::Timeout=1800 "$@"; }
 
 [ "$(id -u)" = 0 ] || { echo "Запустите от root"; exit 1; }
 export DEBIAN_FRONTEND=noninteractive
@@ -29,9 +40,9 @@ mkdir -p "$STATE"
 # ---------- 1. Система ----------
 if done_ system; then ok "1/7 Система уже обновлена — пропускаю"; else
   say "1/7 Обновление системы"
-  apt-get update
-  apt-get -y -o Dpkg::Options::=--force-confold full-upgrade
-  apt-get install -y sudo curl wget ca-certificates git nginx certbot ufw unattended-upgrades dnsutils openssh-client
+  apt_get update
+  apt_get -y -o Dpkg::Options::=--force-confold full-upgrade
+  apt_get install -y sudo curl wget ca-certificates git nginx certbot ufw unattended-upgrades dnsutils openssh-client
   cat > /etc/apt/apt.conf.d/20auto-upgrades <<'EOF'
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
@@ -42,8 +53,8 @@ EOF
   ufw allow OpenSSH >/dev/null && ufw allow 'Nginx Full' >/dev/null && ufw --force enable >/dev/null
   ok "Файрвол: открыты только SSH, 80, 443"
   NODE_MAJOR=$(apt-cache policy nodejs | awk '/Candidate/ {v=$2; sub(/^[0-9]+:/,"",v); split(v,a,"."); print a[1]}')
-  if [ "${NODE_MAJOR:-0}" -ge 20 ] 2>/dev/null; then apt-get install -y nodejs npm
-  else curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && apt-get install -y nodejs; fi
+  if [ "${NODE_MAJOR:-0}" -ge 20 ] 2>/dev/null; then apt_get install -y nodejs npm
+  else wait_apt; curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && apt_get install -y nodejs; fi
   mark system
 fi
 ok "Node $(node -v)"
@@ -135,7 +146,7 @@ else
   # Библиотеки, нужные Chromium (список Playwright для Ubuntu 24.04; отсутствующие пакеты пропускаются)
   DEPS="libasound2t64 libatk-bridge2.0-0t64 libatk1.0-0t64 libatspi2.0-0t64 libcairo2 libcups2t64 libdbus-1-3 libdrm2 libexpat1 libgbm1 libglib2.0-0t64 libnspr4 libnss3 libpango-1.0-0 libx11-6 libxcb1 libxcomposite1 libxdamage1 libxext6 libxfixes3 libxkbcommon0 libxrandr2 libxshmfence1 libfontconfig1 libfreetype6 fonts-liberation fonts-dejavu-core"
   AVAIL=""; for p in $DEPS; do apt-cache show "$p" >/dev/null 2>&1 && AVAIL="$AVAIL $p"; done
-  apt-get install -y $AVAIL >/dev/null && ok "Библиотеки для Chromium установлены"
+  apt_get install -y $AVAIL >/dev/null && ok "Библиотеки для Chromium установлены"
   # Вариант А: сборка Playwright для Ubuntu 24.04 (официально 26.04 ещё не поддерживается)
   sudo -u "$USER_APP" -H env PLAYWRIGHT_HOST_PLATFORM_OVERRIDE=ubuntu24.04-x64 npx -y "playwright@$PW_VERSION" install chromium || warn "Playwright не скачал Chromium"
   CAND=$(ls -d "$HOME_APP"/.cache/ms-playwright/chromium-*/chrome-linux*/chrome 2>/dev/null | sort -V | tail -1 || true)
@@ -145,7 +156,7 @@ else
     # Вариант Б: Google Chrome (официальный .deb, ставит зависимости сам и обновляется через apt)
     say "Пробую Google Chrome"
     if wget -q -O /tmp/google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-       && apt-get install -y /tmp/google-chrome.deb; then
+       && apt_get install -y /tmp/google-chrome.deb; then
       chrome_ok /usr/bin/google-chrome-stable && CHROME=/usr/bin/google-chrome-stable
     fi
     rm -f /tmp/google-chrome.deb
