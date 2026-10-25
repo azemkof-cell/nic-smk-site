@@ -19,16 +19,16 @@ const services = [
   { href: '/obsledovanie', icon: 'search', title: 'Обследование зданий', text: 'Оценка технического состояния конструкций с выдачей технического отчёта.' },
 ];
 ---
-<Base title="НИЦ СМК — строительный контроль и испытательная лаборатория" description="Строительный контроль, контроль прочности монолита, аккредитованная лаборатория, электролаборатория и обследование зданий в Москве. КП онлайн за минуту.">
-  <section class="on-ink">
+<Base title="НИЦ СМК: строительный контроль и испытательная лаборатория" description="Строительный контроль, контроль прочности монолита, аккредитованная лаборатория, электролаборатория и обследование зданий в Москве. КП онлайн за минуту.">
+  <section>
     <div class="container home-hero">
       <div style="display:flex;flex-direction:column;gap:28px">
         <span class="badge-dot"><span aria-hidden="true"></span>Аккредитованная испытательная лаборатория · ГОСТ ISO/IEC 17025-2019</span>
-        <h1 class="h1">Строительный контроль и&nbsp;испытания <span style="color:var(--accent)">полного цикла</span></h1>
+        <h1 class="h1">Строительный контроль и&nbsp;испытания <span class="marker">полного цикла</span></h1>
         <p class="lead" style="max-width:580px">Строительный контроль, контроль прочности монолитных конструкций, лабораторные и электротехнические испытания, обследование зданий. Москва и Московская область.</p>
         <div style="display:flex;flex-wrap:wrap;gap:12px">
           <a href="/kalkulyator" class="btn btn--accent btn--lg">Получить предложение <Icon name="arrow" size={18} width={2.2} /></a>
-          <a href="#docs" class="btn btn--ghost btn--lg">Документы и допуски</a>
+          <a href="#docs" class="btn btn--outline btn--lg">Документы и допуски</a>
         </div>
       </div>
       <div class="comp-card">
@@ -40,7 +40,7 @@ const services = [
     </div>
   </section>
 
-  <section class="container" style="margin-top:-40px;position:relative" aria-label="Цифры">
+  <section class="container" aria-label="Цифры">
     <div class="stats">
       <div><b>350+</b><span>объектов сопровождено</span></div>
       <div><b>с 2020</b><span>года на рынке</span></div>
@@ -52,7 +52,7 @@ const services = [
   <section class="container" style="padding-top:112px;padding-bottom:40px" aria-labelledby="dir-h">
     <div class="section-head">
       <div class="eyebrow">Направления</div>
-      <h2 class="h2" id="dir-h" style="font-size:clamp(26px,3vw,40px)">Пять направлений — один подрядчик</h2>
+      <h2 class="h2" id="dir-h" style="font-size:clamp(26px,3vw,40px)">Пять направлений, один подрядчик</h2>
     </div>
     <div class="grid grid--200">
       {services.map((s) => (
@@ -95,8 +95,8 @@ const services = [
       </div>
       <div style="display:flex;flex-direction:column;gap:16px">
         <div class="eyebrow">Собственная лаборатория</div>
-        <h2 class="h2 h2--sm" id="lab-h">Испытываем сами — без посредников</h2>
-        <p style="margin:0;color:var(--text-2);font-size:17px">Аккредитованная лаборатория в Москве на ул. Вилюйской: бетон, растворы, грунты, щебень, асфальтобетон, металл и сварные соединения. Протоколы испытаний выдаём сами — без сторонних подрядчиков и лишних сроков.</p>
+        <h2 class="h2 h2--sm" id="lab-h">Испытываем сами, без посредников</h2>
+        <p style="margin:0;color:var(--text-2);font-size:17px">Аккредитованная лаборатория в Москве на ул. Вилюйской: бетон, растворы, грунты, щебень, асфальтобетон, металл и сварные соединения. Протоколы испытаний выдаём сами, без сторонних подрядчиков и лишних сроков.</p>
         <a href="/laboratoriya" class="btn btn--dark" style="align-self:flex-start">Смотреть лабораторию</a>
       </div>
     </div>
@@ -109,7 +109,7 @@ const services = [
           <div class="eyebrow">Документы и допуски</div>
           <h2 class="h2 h2--sm" id="docs-h" style="margin-top:10px">Работаем официально</h2>
         </div>
-        <p style="margin:0;max-width:420px;color:var(--muted)">Копии документов — по ссылкам ниже; заверенные копии направим вместе с коммерческим предложением.</p>
+        <p style="margin:0;max-width:420px;color:var(--muted)">Копии документов доступны по ссылкам ниже. Заверенные копии направим вместе с коммерческим предложением.</p>
       </div>
       <Docs />
     </div>

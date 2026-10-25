@@ -138,16 +138,16 @@ export default function Calculator({ phone }: { phone: string }) {
           <p style="margin:0 0 18px;color:var(--muted);font-size:14px">
             {cur.note}{' '}
             <span class="nowrap">
-              <span style="color:var(--accent-ink);font-weight:800">*</span> — нужно для расчёта.
+              <span style="color:var(--accent-ink);font-weight:800">*</span> нужно для расчёта.
             </span>
           </p>
           {cur.promo && (
             <div class="calc__promo">
               <div style="flex:1 1 380px;min-width:0">
                 <div style="font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--accent)">РЕКОМЕНДУЕМ ДЛЯ МОНОЛИТА</div>
-                <div style="margin-top:6px;font-weight:800;font-size:20px;line-height:1.3">Фиксированный тариф — от 75&nbsp;000&nbsp;₽ за объект в месяц</div>
+                <div style="margin-top:6px;font-weight:800;font-size:20px;line-height:1.3">Фиксированный тариф: от 75&nbsp;000&nbsp;₽ за объект в месяц</div>
                 <p style="margin:8px 0 0;color:var(--on-ink);font-size:15px">
-                  Расчёт по ГОСТ зависит от числа захваток, классов бетона и графика бетонирования — заранее его трудно оценить точно. С пакетом цена известна сразу: сплошной контроль прочности всех конструкций без пересчётов за каждое испытание.
+                  Расчёт по ГОСТ зависит от числа захваток, классов бетона и графика бетонирования, поэтому заранее его трудно оценить точно. С пакетом цена известна сразу: сплошной контроль прочности всех конструкций без пересчётов за каждое испытание.
                 </p>
               </div>
               <div style="display:flex;flex-direction:column;gap:8px;flex:0 0 auto">
@@ -192,7 +192,7 @@ export default function Calculator({ phone }: { phone: string }) {
                           inputMode="decimal"
                           autoComplete="off"
                           value={String(v[f.k] ?? '')}
-                          placeholder={f.ph || (f.req ? 'Введите значение' : 'Если есть — укажите')}
+                          placeholder={f.ph || (f.req ? 'Введите значение' : 'Если есть, укажите')}
                           aria-required={f.req ? 'true' : undefined}
                           aria-describedby={hint ? fid + '-h' : undefined}
                           onInput={(e) => setV(f.k, (e.currentTarget as HTMLInputElement).value.replace(/[^0-9.,\s]/g, '').replace(/\s/g, ''))}
@@ -247,7 +247,7 @@ export default function Calculator({ phone }: { phone: string }) {
             <h2 id="st3">Состав испытаний по нормативам</h2>
           </div>
           {res.lines.length === 0 ? (
-            <div style={'padding:28px 22px;' + (bad.lines ? 'color:var(--danger);font-weight:700' : 'color:var(--muted)')}>Введите параметры объекта (поля со * обязательны) — здесь появится состав испытаний и стоимость.</div>
+            <div style={'padding:28px 22px;' + (bad.lines ? 'color:var(--danger);font-weight:700' : 'color:var(--muted)')}>Введите параметры объекта (поля со * обязательны). Здесь появится состав испытаний и стоимость.</div>
           ) : (
             res.lines.map((l, i) => (
               <div key={i} class="calc__line">
@@ -275,7 +275,7 @@ export default function Calculator({ phone }: { phone: string }) {
 
         <div class="card" style="border-radius:18px;padding:20px 22px;display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--text-2)">
           <h2 style="margin:0;font-weight:800;font-size:15px;color:var(--ink)">Как считает калькулятор</h2>
-          <span>Количество испытаний определяется по нормативам, указанным у каждой строки, стоимость — по действующему прайс-листу. Цены без НДС.</span>
+          <span>Количество испытаний определяется по нормативам, указанным у каждой строки, стоимость считается по действующему прайс-листу. Цены без НДС.</span>
           <span>Расчёт предварительный: состав работ уточняется по проекту и фактическим условиям объекта и фиксируется в договоре. Информация не является публичной офертой.</span>
           <span>
             Нужно испытание, которого нет в калькуляторе? Смотрите <a href="/ceny/rascenki">единичные расценки</a>.
@@ -298,11 +298,11 @@ export default function Calculator({ phone }: { phone: string }) {
           <div style="border-top:1px solid var(--ink-line);padding-top:14px;display:flex;flex-direction:column;gap:2px" aria-live="polite">
             <span style="color:var(--on-ink)">Стоимость, без НДС</span>
             <span class="calc__total">{totalText}</span>
-            {res.hasFrom && <span style="font-size:13px;color:var(--on-ink-2)">Есть позиции с ценой «от» — итог ориентировочный.</span>}
+            {res.hasFrom && <span style="font-size:13px;color:var(--on-ink-2)">Есть позиции с ценой «от», итог ориентировочный.</span>}
           </div>
           <form ref={formRef} id="calc-form" class="calc__form" onSubmit={onSubmit} noValidate>
             <h2 style="margin:0;font-weight:800;font-size:16px">Коммерческое предложение на ваш объект</h2>
-            <div style="font-size:13px;color:var(--muted);margin-top:-6px">Заполните данные — КП сформируется сразу, его можно сохранить в PDF.</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:-6px">Заполните данные, и КП сформируется сразу. Его можно сохранить в PDF.</div>
             <Honeypot onValue={setHp} />
             <div class="field">
               <label class="label" for="k-addr">

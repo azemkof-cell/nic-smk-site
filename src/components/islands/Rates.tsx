@@ -141,8 +141,8 @@ export default function Rates({ phone }: { phone: string }) {
         </div>
         {found === 0 && (
           <div style="background:#fff;border:1px dashed var(--line-3);border-radius:18px;padding:40px 24px;text-align:center">
-            <div style="font-weight:800;font-size:18px">Ничего не нашли — позвоните</div>
-            <p style="margin:8px 0 16px;color:var(--muted)">Попробуйте другое слово или позвоните нам — подберём испытание под задачу.</p>
+            <div style="font-weight:800;font-size:18px">Ничего не нашли? Позвоните</div>
+            <p style="margin:8px 0 16px;color:var(--muted)">Попробуйте другое слово или позвоните нам. Подберём испытание под задачу.</p>
             <a class="btn btn--dark btn--sm" href={'tel:+' + phone.replace(/\D/g, '')}>
               {phone}
             </a>
@@ -195,7 +195,7 @@ export default function Rates({ phone }: { phone: string }) {
         <div class="card" style="border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--text-2)">
           <h2 style="margin:0;font-weight:800;font-size:16px;color:var(--ink)">Условия</h2>
           <span>Все цены указаны без НДС.</span>
-          <span>Цена с пометкой «от» — минимальная; итоговая стоимость зависит от объёма работ и условий на объекте.</span>
+          <span>Цена с пометкой «от» минимальная; итоговая стоимость зависит от объёма работ и условий на объекте.</span>
           <span>Выезд специалиста оплачивается отдельно (раздел «Выезд специалиста»), в пределах Москвы и Московской области.</span>
           <span>Информация не является публичной офертой; цены без НДС; итоговая стоимость фиксируется в договоре.</span>
         </div>
@@ -220,12 +220,12 @@ export default function Rates({ phone }: { phone: string }) {
                 <b style="color:#fff">2.</b> Впишите объёмы: пробы, серии, м², км.
               </span>
               <span>
-                <b style="color:#fff">3.</b> Получите КП — перезвоним за 30 минут.
+                <b style="color:#fff">3.</b> Получите КП. Перезвоним за 30 минут.
               </span>
             </div>
           ) : (
             <>
-              <div style="font-size:13px;color:var(--on-ink)">Впишите объём по каждой позиции — итог пересчитается сразу.</div>
+              <div style="font-size:13px;color:var(--on-ink)">Впишите объём по каждой позиции, итог пересчитается сразу.</div>
               <ul style="display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none">
                 {lines.map((c) => (
                   <li key={c.id} style="background:var(--ink-2);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px">
@@ -261,7 +261,7 @@ export default function Rates({ phone }: { phone: string }) {
                 <span style="color:var(--on-ink)">Итого, без НДС</span>
                 <span class="calc__total" style="font-size:26px">{totalText}</span>
               </div>
-              {hasFrom && <div style="font-size:13px;color:var(--on-ink-2)">В расчёте есть позиции с ценой «от» — итог ориентировочный.</div>}
+              {hasFrom && <div style="font-size:13px;color:var(--on-ink-2)">В расчёте есть позиции с ценой «от», итог ориентировочный.</div>}
               <form class="calc__form" onSubmit={onSubmit} noValidate>
                 <h2 style="margin:0;font-weight:800;font-size:16px">Получить предложение</h2>
                 <div style="font-size:13px;color:var(--muted);margin-top:-6px">КП сформируется сразу; инженер проверит объёмы и перезвонит.</div>

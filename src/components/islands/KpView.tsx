@@ -75,7 +75,7 @@ export default function KpView({ kp, token, serverOk, phone, backLabel, onBack }
           )}
           {mail === 'error' && (
             <p role="alert" class="err" style="margin:0;flex-basis:100%">
-              Не отправилось — позвоните <a href={telHref}>{phone}</a>.
+              Не отправилось. Позвоните <a href={telHref}>{phone}</a>.
             </p>
           )}
         </form>
@@ -83,12 +83,12 @@ export default function KpView({ kp, token, serverOk, phone, backLabel, onBack }
       {serverOk ? (
         <div class="kp-status noprint" role="status">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5C02B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="m5 12 5 5 9-10" /></svg>
-          <span>Заявка принята, предложение {kp.no} у инженера. Перезвоним в рабочее время — в течение 30 минут.</span>
+          <span>Заявка принята, предложение {kp.no} у инженера. Перезвоним в рабочее время в течение 30 минут.</span>
         </div>
       ) : (
         <div class="kp-status kp-status--warn noprint" role="alert">
           <span>
-            Предложение сформировано, но заявка не отправилась — позвоните <a href={telHref}>{phone}</a> или сохраните КП и пришлите нам.
+            Предложение сформировано, но заявка не отправилась. Позвоните <a href={telHref}>{phone}</a> или сохраните КП и пришлите нам.
           </span>
         </div>
       )}

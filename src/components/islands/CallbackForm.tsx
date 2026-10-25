@@ -45,7 +45,7 @@ export default function CallbackForm({ source, dark, title, subtitle, direction,
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#14171A" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10" /></svg>
         </span>
         <div style={dark ? "font-family:var(--f-display);font-size:26px;font-weight:600" : 'font-weight:800;font-size:22px'}>Заявка принята</div>
-        <p style={'margin:0;color:' + (dark ? 'var(--on-ink)' : 'var(--text-2)')}>Перезвоним в рабочее время — в течение 30 минут.</p>
+        <p style={'margin:0;color:' + (dark ? 'var(--on-ink)' : 'var(--text-2)')}>Перезвоним в рабочее время в течение 30 минут.</p>
         <button
           type="button"
           class={'btn btn--sm ' + (dark ? 'btn--ghost' : 'btn--outline')}
@@ -102,7 +102,7 @@ export default function CallbackForm({ source, dark, title, subtitle, direction,
       <Consent id={p + '-consent'} checked={consent} onChange={setConsent} invalid={consentBad} />
       {status === 'error' && (
         <div class="form-error" role="alert">
-          Не отправилось — позвоните <a href={telHref}>{phone}</a>. Введённые данные сохранены, можно попробовать ещё раз.
+          Не отправилось. Позвоните <a href={telHref}>{phone}</a>. Введённые данные сохранены, можно попробовать ещё раз.
         </div>
       )}
       <button type="submit" class="btn btn--accent btn--lg btn--block" disabled={status === 'sending'} aria-busy={status === 'sending'}>

@@ -15,7 +15,7 @@ const groups = [
 ];
 const copyText = R.map((r) => r.field + ': ' + r.value).join('\n') + '\nТелефон: ' + contacts.phone + '\nE-mail: ' + contacts.email;
 ---
-<Base title="Контакты и реквизиты — НИЦ СМК" description="Лаборатория НИЦ СМК: Москва, ул. Вилюйская, д. 11, стр. 3. Телефон +7 (916) 006-52-06, Пн–Пт 09:00–18:00. Реквизиты ООО «НИЦ СМК» для договора и оплаты." crumbs={crumbs}>
+<Base title="Контакты и реквизиты | НИЦ СМК" description="Лаборатория НИЦ СМК: Москва, ул. Вилюйская, д. 11, стр. 3. Телефон +7 (916) 006-52-06, Пн–Пт 09:00–18:00. Реквизиты ООО «НИЦ СМК» для договора и оплаты." crumbs={crumbs}>
   <section class="container" style="padding-top:40px;padding-bottom:72px">
     <Crumbs items={crumbs} />
     <h1 class="h1 h1--md" style="margin:32px 0 40px">Свяжитесь с нами</h1>
@@ -42,13 +42,43 @@ const copyText = R.map((r) => r.field + ': ' + r.value).join('\n') + '\nТеле
             <span class="icon-tile" style="width:36px;height:36px;border-radius:10px"><Icon name="bus" size={18} stroke="#14171A" /></span>
             <div><div style="font-weight:700">Остановка «Вилюйская улица»</div><div style="font-size:14px;color:var(--muted)">около 740 м</div></div>
           </div>
-          <div class="map" data-map>
-            <button type="button" class="map__btn" data-map-load>
-              <Icon name="search" size={20} />Показать карту
-            </button>
-            <noscript><a href={social.yandexMaps}>Открыть на Яндекс Картах</a></noscript>
+          <figure class="route" aria-labelledby="route-cap">
+            <svg viewBox="0 0 640 360" role="img" aria-label="Схема проезда: от метро «Медведково» около 2,3 км или от остановки «Вилюйская улица» около 740 м пешком до лаборатории на ул. Вилюйской, д. 11, стр. 3">
+              <rect width="640" height="360" fill="#F5F5F2" />
+              <g stroke="#E2E2DC" stroke-width="1">
+                {[40, 100, 160, 220, 280, 340].map((y) => <line x1="0" y1={y} x2="640" y2={y} />)}
+                {[60, 140, 220, 300, 380, 460, 540, 620].map((x) => <line x1={x} y1="0" x2={x} y2="360" />)}
+              </g>
+              <path d="M70 290 C 180 290, 210 200, 330 190 S 470 120, 520 110" fill="none" stroke="#14171A" stroke-width="6" stroke-linecap="round" />
+              <path d="M330 190 C 400 186, 470 150, 520 110" fill="none" stroke="#F5C02B" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 12" />
+              <g transform="translate(70 290)">
+                <circle r="20" fill="#14171A" />
+                <text y="7" text-anchor="middle" font-family="Manrope, sans-serif" font-size="20" font-weight="800" fill="#F5C02B">М</text>
+                <text x="0" y="46" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" fill="#14171A">«Медведково»</text>
+                <text x="0" y="66" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" fill="#5B6066">≈ 2,3 км</text>
+              </g>
+              <g transform="translate(330 190)">
+                <rect x="-16" y="-16" width="32" height="32" rx="8" fill="#FBEFC6" stroke="#14171A" stroke-width="2" />
+                <text y="6" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#14171A">А</text>
+                <text x="0" y="44" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" fill="#14171A">Остановка</text>
+                <text x="0" y="62" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" fill="#14171A">«Вилюйская улица»</text>
+                <text x="0" y="80" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" fill="#5B6066">≈ 740 м пешком</text>
+              </g>
+              <g transform="translate(520 110)">
+                <path d="M0 0 C -22 -26, -22 -52, 0 -52 C 22 -52, 22 -26, 0 0 Z" fill="#F5C02B" stroke="#14171A" stroke-width="2.5" />
+                <circle cx="0" cy="-34" r="7" fill="#14171A" />
+                <rect x="-118" y="12" width="236" height="56" rx="12" fill="#14171A" />
+                <text x="0" y="36" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">ул. Вилюйская, д. 11, стр. 3</text>
+                <text x="0" y="56" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" fill="#F5C02B">Лаборатория НИЦ СМК</text>
+              </g>
+            </svg>
+            <figcaption id="route-cap" class="route__cap">Схема проезда, не в масштабе</figcaption>
+          </figure>
+          <div class="route__btns">
+            <a href={social.yandexMaps} class="btn btn--dark btn--sm" rel="noopener" target="_blank">Яндекс Карты<span class="sr-only"> (откроется в новой вкладке)</span></a>
+            <a href={social.gis2} class="btn btn--dark btn--sm" rel="noopener" target="_blank">2ГИС<span class="sr-only"> (откроется в новой вкладке)</span></a>
+            <a href={social.navigatorWeb} data-navi={social.navigatorApp} class="btn btn--dark btn--sm" rel="noopener" target="_blank">Навигатор<span class="sr-only"> (откроется в новой вкладке)</span></a>
           </div>
-          <a href={social.yandexMaps} class="btn btn--dark" rel="noopener" target="_blank">Открыть на Яндекс Картах <span class="sr-only">(откроется в новой вкладке)</span></a>
         </div>
         <a href="#rekvizity" class="card service-card" style="border-radius:18px;flex-direction:row;justify-content:space-between;align-items:center;padding:20px 24px">
           <span><span style="display:block;font-weight:800;font-size:17px">Реквизиты для договора и оплаты</span><span style="font-size:14px;color:var(--muted)">ИНН 9715387698 · ОГРН 1207700275903</span></span>
@@ -113,15 +143,10 @@ const copyText = R.map((r) => r.field + ': ' + r.value).join('\n') + '\nТеле
     setTimeout(() => { if (label) label.textContent = 'Скопировать реквизиты'; }, 2500);
   });
 
-  // Карта Яндекса подгружается, когда блок доходит до экрана (или по кнопке)
-  const map = document.querySelector<HTMLElement>('[data-map]');
-  const loadMap = () => {
-    if (!map || map.querySelector('iframe')) return;
-    map.innerHTML = '<iframe title="Лаборатория НИЦ СМК на Яндекс Картах" src="https://yandex.ru/map-widget/v1/?oid=138955398020&z=15" allowfullscreen></iframe>';
-  };
-  map?.querySelector('[data-map-load]')?.addEventListener('click', loadMap);
-  if (map && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); setTimeout(loadMap, 300); } }, { rootMargin: '0px' });
-    io.observe(map);
+  // На телефоне «Навигатор» открывает приложение Яндекс Навигатор, на компьютере — Яндекс Карты
+  const navi = document.querySelector<HTMLAnchorElement>('[data-navi]');
+  if (navi && matchMedia('(pointer: coarse)').matches) {
+    navi.href = navi.dataset.navi!;
+    navi.removeAttribute('target');
   }
 </script>

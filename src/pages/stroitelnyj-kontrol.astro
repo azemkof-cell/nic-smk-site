@@ -20,7 +20,7 @@ const schema = [{
   description: 'Строительный контроль по ПП РФ № 468: приёмка скрытых работ, контроль качества, исполнительная документация.',
 }];
 ---
-<Base title="Строительный контроль в Москве — НИЦ СМК" description="Строительный контроль со стороны заказчика: приёмка скрытых работ, предписания, исполнительная документация. Расчёт стоимости по ПП РФ № 468 онлайн." crumbs={crumbs} schema={schema}>
+<Base title="Строительный контроль в Москве | НИЦ СМК" description="Строительный контроль со стороны заказчика: приёмка скрытых работ, предписания, исполнительная документация. Расчёт стоимости по ПП РФ № 468 онлайн." crumbs={crumbs} schema={schema}>
   <section class="container" style="padding-top:40px;padding-bottom:72px">
     <Crumbs items={crumbs} />
     <div style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:48px;align-items:end">
@@ -38,7 +38,7 @@ const schema = [{
         <ul class="check-list" style="color:#D6D9DD">
           {['Акты освидетельствования скрытых работ', 'Предписания и ведомость замечаний с контролем устранения', 'Протоколы испытаний материалов', 'Отчёт по строительному контролю и исполнительная документация'].map((t) => <li><Icon name="check" size={18} stroke="#F5C02B" width={2.6} />{t}</li>)}
         </ul>
-        <div style="border-top:1px solid var(--ink-line);padding-top:16px;color:var(--on-ink);font-size:15px">Стоимость зависит от объекта и графика работ — рассчитаем за 30 минут.</div>
+        <div style="border-top:1px solid var(--ink-line);padding-top:16px;color:var(--on-ink);font-size:15px">Стоимость зависит от объекта и графика работ. Рассчитаем за 30 минут.</div>
       </div>
     </div>
   </section>
@@ -94,7 +94,7 @@ const schema = [{
     <div class="grid grid--340">
       <div class="card" style="border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:12px">
         <h2 class="card-title card-title--lg">Своя аккредитованная лаборатория</h2>
-        <p style="margin:0;color:var(--text-2)">Испытания бетона, грунтов, нерудных материалов, асфальтобетона и сварных соединений выполняем сами — без сторонних подрядчиков и лишних сроков.</p>
+        <p style="margin:0;color:var(--text-2)">Испытания бетона, грунтов, нерудных материалов, асфальтобетона и сварных соединений выполняем сами, без сторонних подрядчиков и лишних сроков.</p>
         <a href="/laboratoriya#scope" style="align-self:flex-start;margin-top:4px;font-weight:800">Область аккредитации</a>
       </div>
       <div class="card" style="border:2px solid var(--ink);border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:12px">
@@ -102,14 +102,14 @@ const schema = [{
         <h2 class="card-title card-title--lg">Подготовка исполнительной документации</h2>
         <p style="margin:0;color:var(--text-2)">Ведём и комплектуем ИД за подрядчика по <span class="nowrap">приказу Минстроя № 344/пр</span>: акты освидетельствования скрытых работ и ответственных конструкций, исполнительные схемы, общий и специальные журналы, реестр документации. Сдаём комплект для получения ЗОС.</p>
         <div style="margin-top:auto;padding-top:8px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline">
-          <span style="font-family:var(--f-display);font-size:26px;font-weight:600">от {idocPercent(1e9).toLocaleString('ru-RU')} %</span><span style="color:var(--muted)">от стоимости строительства: до 100 млн ₽ — 1,4 %, до 500 млн ₽ — 1,05 %, свыше — 0,7 %</span>
+          <span style="font-family:var(--f-display);font-size:26px;font-weight:600">от {idocPercent(1e9).toLocaleString('ru-RU')} %</span><span style="color:var(--muted)">от стоимости строительства: до 100 млн ₽ 1,4 %, до 500 млн ₽ 1,05 %, свыше 0,7 %</span>
         </div>
         <a href="/kalkulyator?type=sk&idoc=1" style="align-self:flex-start;font-weight:800">Рассчитать в калькуляторе</a>
       </div>
       <a href="/kontrol-monolita" class="card service-card" style="background:var(--accent);border-color:var(--accent);border-radius:24px;padding:32px;gap:12px">
         <div class="eyebrow" style="color:var(--ink)">Отдельная услуга</div>
         <h2 class="card-title card-title--lg">Нужен только контроль бетона?</h2>
-        <p style="color:var(--ink)">Сплошной контроль прочности монолитных конструкций — пакеты от 75&nbsp;000&nbsp;₽ в месяц.</p>
+        <p style="color:var(--ink)">Сплошной контроль прочности монолитных конструкций: пакеты от 75&nbsp;000&nbsp;₽ в месяц.</p>
         <span class="link-arrow">Подробнее <Icon name="arrow" size={18} width={2.2} /></span>
       </a>
     </div>
@@ -121,9 +121,9 @@ const schema = [{
       <div class="grid grid--240">
         {[
           ['Специалисты в НРС', 'Инженеры включены в Национальные реестры специалистов НОСТРОЙ и НОПРИЗ.'],
-          ['Ответственный инженер', 'За объектом закреплён инженер; численность — по нормативу ПП № 468.'],
-          ['Своя лаборатория', 'Испытания материалов — в собственной аккредитованной лаборатории, без субподряда.'],
-          ['Документы в срок', 'Предписания, акты и отчёты — в оговорённые сроки, замечания на контроле до устранения.'],
+          ['Ответственный инженер', 'За объектом закреплён инженер, численность определяем по нормативу ПП № 468.'],
+          ['Своя лаборатория', 'Испытываем материалы в собственной аккредитованной лаборатории, без субподряда.'],
+          ['Документы в срок', 'Выдаём предписания, акты и отчёты в оговорённые сроки и держим замечания на контроле до устранения.'],
         ].map(([t, d]) => <div class="card card--soft" style="padding:24px"><h3 class="card-title">{t}</h3><p style="margin:8px 0 0;color:var(--muted)">{d}</p></div>)}
       </div>
     </div>
@@ -134,5 +134,5 @@ const schema = [{
     <Docs only={['sro-st', 'sro-pr', 'sro-iz', 'akkr', 'nrs']} />
   </section>
 
-  <CallbackSection title="Рассчитаем стоимость строительного контроля" text="Расскажите об объекте — перезвоним в течение 30 минут, консультация бесплатно." direction="Строительный контроль" />
+  <CallbackSection title="Рассчитаем стоимость строительного контроля" text="Расскажите об объекте. Перезвоним в течение 30 минут, консультация бесплатно." direction="Строительный контроль" />
 </Base>

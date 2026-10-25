@@ -25,8 +25,8 @@ const tests = [
 ];
 const schema = [{ '@context': 'https://schema.org', '@type': 'Service', name: 'Испытания и измерения электроустановок до 1000 В', provider: { '@id': 'https://nic-smk.ru/#org' }, areaServed: 'Москва и Московская область' }];
 ---
-<Base title="Электролаборатория до 1000 В в Москве — НИЦ СМК" description="Приёмо-сдаточные испытания и измерения электроустановок до 1000 В. Электролаборатория в реестре Ростехнадзора (№ 10041). Технический отчёт с протоколами." crumbs={crumbs} schema={schema}>
-  <section class="on-ink">
+<Base title="Электролаборатория до 1000 В в Москве | НИЦ СМК" description="Приёмо-сдаточные испытания и измерения электроустановок до 1000 В. Электролаборатория в реестре Ростехнадзора (№ 10041). Технический отчёт с протоколами." crumbs={crumbs} schema={schema}>
+  <section class="hero-light">
     <div class="container" style="padding-top:40px;padding-bottom:88px">
       <Crumbs items={crumbs} />
       <div class="split" style="margin-top:36px">
@@ -51,7 +51,7 @@ const schema = [{ '@context': 'https://schema.org', '@type': 'Service', name: '�
 
   <section class="container section" aria-labelledby="t-h">
     <h2 class="h2 h2--sm" id="t-h" style="margin-bottom:8px">Виды испытаний и измерений</h2>
-    <p style="margin:0 0 32px;color:var(--muted)">Перечень в соответствии со свидетельством о регистрации — {tests.length} видов.</p>
+    <p style="margin:0 0 32px;color:var(--muted)">Перечень в соответствии со свидетельством о регистрации: {tests.length} видов.</p>
     <ol class="rows el-list">
       {tests.map((t, i) => <li class="row"><span style="font-weight:800;color:var(--accent-ink);font-size:14px;min-width:24px;padding-top:2px" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><span>{t}</span></li>)}
     </ol>
@@ -70,5 +70,5 @@ const schema = [{ '@context': 'https://schema.org', '@type': 'Service', name: '�
     </div>
   </section>
 
-  <CallbackSection title="Рассчитаем стоимость электро­измерений" text="Пришлите однолинейную схему или описание объекта — рассчитаем стоимость за 30 минут." direction="Электролаборатория" />
+  <CallbackSection title="Рассчитаем стоимость электро­измерений" text="Пришлите однолинейную схему или описание объекта. Рассчитаем стоимость за 30 минут." direction="Электролаборатория" />
 </Base>

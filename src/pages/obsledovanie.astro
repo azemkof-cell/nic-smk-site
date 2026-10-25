@@ -18,13 +18,13 @@ const kinds = [
   { t: 'Визуальный осмотр квартиры', d: 'Акт осмотра с фиксацией дефектов.', p: 'от ' + fmt(rateById(96)!.price) + ' ₽' },
   { t: 'Обследование квартиры с техзаключением', d: 'Инструментальное обследование до 100 м², техническое заключение.', p: 'от ' + fmt(rateById(100)!.price) + ' ₽' },
   { t: 'Обследование нежилого помещения', d: 'Визуальное или инструментальное, с актом или техническим заключением.', p: 'от ' + fmt(rateById(98)!.price) + ' ₽' },
-  { t: 'Здания и сооружения', d: 'Оценка технического состояния по ГОСТ 31937-2024; цена по шкале площади: 1 000 м² — ' + fmt(surveyScale(1000)) + ' ₽.', p: 'от ' + fmt(surveyScale(101)) + ' ₽' },
+  { t: 'Здания и сооружения', d: 'Оценка технического состояния по ГОСТ 31937-2024; по шкале площади 1 000 м² стоят ' + fmt(surveyScale(1000)) + ' ₽.', p: 'от ' + fmt(surveyScale(101)) + ' ₽' },
   { t: 'Балконы, лоджии, козырьки', d: 'Отдельное обследование консольных конструкций.', p: 'от ' + fmt(rateById(103)!.price) + ' ₽' },
   { t: 'Кровля и стропильная система', d: 'Состояние несущих элементов кровли и покрытия.', p: 'от ' + fmt(rateById(104)!.price) + ' ₽' },
 ];
 const schema = [{ '@context': 'https://schema.org', '@type': 'Service', name: 'Обследование зданий и сооружений', provider: { '@id': 'https://nic-smk.ru/#org' }, areaServed: 'Москва и Московская область' }];
 ---
-<Base title="Обследование зданий и сооружений — НИЦ СМК" description="Техническое обследование зданий, сооружений, квартир и нежилых помещений по ГОСТ 31937-2024. Дефекты, испытания, технический отчёт. Цена онлайн." crumbs={crumbs} schema={schema}>
+<Base title="Обследование зданий и сооружений | НИЦ СМК" description="Техническое обследование зданий, сооружений, квартир и нежилых помещений по ГОСТ 31937-2024. Дефекты, испытания, технический отчёт. Цена онлайн." crumbs={crumbs} schema={schema}>
   <section class="container" style="padding-top:40px;padding-bottom:72px">
     <Crumbs items={crumbs} />
     <div class="split" style="margin-top:32px">
@@ -80,7 +80,7 @@ const schema = [{ '@context': 'https://schema.org', '@type': 'Service', name: '�
       </div>
       <div class="on-ink" style="border-radius:24px;padding:36px;display:flex;flex-direction:column;gap:16px;align-self:start">
         <Icon name="doc" size={40} stroke="#F5C02B" width={1.6} />
-        <h2 style="margin:0;font-size:22px;font-weight:800">Результат — технический отчёт</h2>
+        <h2 style="margin:0;font-size:22px;font-weight:800">Результат: технический отчёт</h2>
         <p style="margin:0;color:var(--on-ink)">Описание конструкций, ведомость дефектов, результаты испытаний, оценка технического состояния и рекомендации по устранению замечаний.</p>
         <a href="#zayavka" class="btn btn--accent" style="align-self:flex-start;margin-top:8px">Обсудить объект</a>
       </div>
@@ -101,5 +101,5 @@ const schema = [{ '@context': 'https://schema.org', '@type': 'Service', name: '�
     </div>
   </section>
 
-  <CallbackSection title="Оценим объём обследования бесплатно" text="Опишите объект — перезвоним за 30 минут. Или укажите площадь и вид обследования в калькуляторе — КП сформируется сразу." direction="Обследование здания" />
+  <CallbackSection title="Оценим объём обследования бесплатно" text="Опишите объект, и мы перезвоним за 30 минут. Или укажите площадь и вид обследования в калькуляторе: КП сформируется сразу." direction="Обследование здания" />
 </Base>

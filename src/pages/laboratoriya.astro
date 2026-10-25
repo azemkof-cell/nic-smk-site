@@ -6,8 +6,6 @@ import Steps from '../components/Steps.astro';
 import CallbackSection from '../components/CallbackSection.astro';
 import LabScope from '../components/islands/LabScope';
 import { getImage } from 'astro:assets';
-import { rateViews } from '../lib/data';
-import { fmt } from '../lib/format';
 import g1 from '../assets/img/lab-964eb733.jpg';
 import g2 from '../assets/img/lab-19863109.jpg';
 import g3 from '../assets/img/lab-1ef186d0.jpg';
@@ -38,25 +36,31 @@ const groups = [
   { id: 'metall', label: 'Металл и сварка', items: ['Металлические конструкции; сварные швы соединений металлоконструкций и железобетонных конструкций', 'Сталь арматурная; арматурные и закладные изделия, их сварные соединения', 'Крепёжные изделия для строительно-монтажных работ'] },
   { id: 'krovlya', label: 'Кровля и стеновые материалы', items: ['Материалы рулонные кровельные и гидроизоляционные', 'Кирпич и камни керамические и силикатные'] },
 ];
-// Популярные испытания — цены из rates.json
-const popular = [10, 1, 9, 8, 13, 15, 26, 20, 49, 50, 68, 108, 73, 72, 117].map((id) => rateViews.find((r) => r.id === id)!).filter(Boolean);
+const what = [
+  { icon: 'grid', title: 'Бетон и растворы', text: 'Прочность на сжатие по образцам и в конструкциях, водонепроницаемость, морозостойкость, подвижность смеси.' },
+  { icon: 'flask', title: 'Грунты и нерудные материалы', text: 'Песок, щебень, гравий, ЩПС: зерновой состав, плотность и коэффициент уплотнения, фильтрация.' },
+  { icon: 'helmet', title: 'Асфальтобетон', text: 'Керны и смеси по ГОСТ 9128 и Евроасфальту (ГОСТ Р 58406): плотность, уплотнение, состав, колея.' },
+  { icon: 'bolt', title: 'Сварные соединения', text: 'Визуальный и измерительный контроль швов, ультразвуковая дефектоскопия металлоконструкций и арматуры.' },
+  { icon: 'home', title: 'Кирпич и блоки', text: 'Марка по прочности, плотность, водопоглощение и морозостойкость кирпича, газобетонных блоков.' },
+  { icon: 'shield', title: 'Анкерные крепления', text: 'Испытания анкеров на вырыв и срез, расчёт несущей способности по результатам.' },
+];
 const schema = [{
-  '@context': 'https://schema.org', '@type': 'OfferCatalog', name: 'Испытания строительных материалов',
-  itemListElement: popular.map((r) => ({ '@type': 'Offer', name: r.name, price: r.price, priceCurrency: 'RUB', description: (r.priceFrom ? 'от ' : '') + fmt(r.price) + ' ₽ за ' + r.unit + ', без НДС' })),
+  '@context': 'https://schema.org', '@type': 'Service', name: 'Испытания строительных материалов', provider: { '@id': 'https://nic-smk.ru/#org' }, areaServed: 'Москва и Московская область',
+  hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Что испытываем', itemListElement: what.map((w) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: w.title, description: w.text } })) },
 }];
 ---
-<Base title="Испытательная лаборатория в Москве — НИЦ СМК" description="Аккредитованная испытательная лаборатория (RU.АСК.ИЛ.1132): бетон, грунты, щебень, асфальтобетон, металл и сварка. Цены на испытания и протоколы." crumbs={crumbs} schema={schema}>
-  <section class="on-ink">
+<Base title="Испытательная лаборатория в Москве | НИЦ СМК" description="Аккредитованная испытательная лаборатория (RU.АСК.ИЛ.1132): бетон, грунты, щебень, асфальтобетон, металл и сварка. Цены на испытания и протоколы." crumbs={crumbs} schema={schema}>
+  <section class="hero-light">
     <div class="container" style="padding-top:40px;padding-bottom:88px">
       <Crumbs items={crumbs} />
       <div class="split" style="margin-top:36px">
         <div style="display:flex;flex-direction:column;gap:22px">
           <span class="eyebrow">Испытательная лаборатория ООО «НИЦ СМК»</span>
-          <h1 class="h1" style="font-size:clamp(28px,3.6vw,50px)">Аккредитованная испытательная лаборатория</h1>
+          <h1 class="h1 h1--md">Аккреди&shy;тованная испытательная лаборатория</h1>
           <p class="lead" style="max-width:600px">Испытания строительных материалов, изделий и конструкций в пределах области аккредитации. По результатам выдаём протоколы испытаний.</p>
           <div style="display:flex;flex-wrap:wrap;gap:12px">
-            <a href="/ceny/rascenki" class="btn btn--accent btn--lg">Цены на испытания</a>
-            <a href="#scope" class="btn btn--ghost btn--lg">Область аккредитации</a>
+            <a href="#zayavka" class="btn btn--accent btn--lg">Заказать испытания</a>
+            <a href="#scope" class="btn btn--outline btn--lg">Область аккредитации</a>
           </div>
         </div>
         <div class="comp-card" style="border-radius:24px">
@@ -102,25 +106,23 @@ const schema = [{
     </dialog>
   </section>
 
-  <section class="container" style="padding-top:88px" aria-labelledby="pr-h">
-    <div class="section-head section-head--row" style="margin-bottom:28px">
-      <div><div class="eyebrow">Цены</div><h2 class="h2 h2--sm" id="pr-h" style="margin-top:10px">Испытания с ценами</h2></div>
-      <span class="vat-badge">Все цены без НДС</span>
+  <section class="container" style="padding-top:88px" aria-labelledby="what-h">
+    <div class="section-head" style="margin-bottom:28px">
+      <div class="eyebrow">Направления испытаний</div>
+      <h2 class="h2 h2--sm" id="what-h" style="margin-top:10px">Что испытываем</h2>
     </div>
-    <div class="rows" style="padding-top:0;padding-bottom:0">
-      {popular.map((r) => (
-        <div class="row" style="flex-wrap:wrap;align-items:center;gap:8px 20px">
-          <div style="flex:999 1 320px;min-width:0">
-            <div style="font-weight:600">{r.name}</div>
-            <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;font-size:13px">{r.norm && <span class="tag">{r.norm}</span>}<span class="tag">за {r.unit}</span></div>
-          </div>
-          <div style="margin-left:auto;font-weight:800;font-size:19px;white-space:nowrap">{r.priceFrom && <span style="font-size:13px;color:#6B7076;margin-right:4px">от</span>}{fmt(r.price)}&nbsp;₽</div>
+    <div class="grid grid--340" style="gap:16px">
+      {what.map((w) => (
+        <div class="card" style="display:flex;flex-direction:column;gap:10px">
+          <span class="icon-tile"><Icon name={w.icon} size={26} stroke="#14171A" width={1.8} /></span>
+          <h3 class="card-title" lang="ru">{w.title}</h3>
+          <p style="margin:0;color:var(--muted)">{w.text}</p>
         </div>
       ))}
     </div>
-    <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:12px">
-      <a href="/ceny/rascenki" class="btn btn--dark">Все 138 расценок <Icon name="arrow" size={18} width={2.2} /></a>
-      <a href="/kalkulyator?type=concrete" class="btn btn--outline">Рассчитать по объекту</a>
+    <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px">
+      <a href="/ceny/rascenki" class="btn btn--dark">Все цены <Icon name="arrow" size={18} width={2.2} /></a>
+      <a href="/kalkulyator" class="btn btn--outline">Рассчитать по объекту</a>
     </div>
   </section>
 
@@ -128,7 +130,7 @@ const schema = [{
     <h2 class="h2 h2--sm" id="scope-h">Область аккредитации</h2>
     <p style="margin:10px 0 32px;color:var(--muted);max-width:680px">28 объектов испытаний. Выберите группу, чтобы увидеть перечень.</p>
     <LabScope client:visible groups={groups} />
-    <p style="margin:16px 0 0;font-size:14px;color:var(--muted)">Полный перечень определяемых показателей и методов испытаний — в приложении к аттестату аккредитации: <a href="/docs/oblast-akkreditacii.pdf" style="font-weight:700">область аккредитации (PDF, 14 стр.)</a>.</p>
+    <p style="margin:16px 0 0;font-size:14px;color:var(--muted)">Полный перечень определяемых показателей и методов испытаний приведён в приложении к аттестату аккредитации: <a href="/docs/oblast-akkreditacii.pdf" style="font-weight:700">область аккредитации (PDF, 14 стр.)</a>.</p>
   </section>
 
   <section class="section section--white" aria-labelledby="ord-h">
@@ -143,7 +145,7 @@ const schema = [{
     </div>
   </section>
 
-  <CallbackSection title="Нужны испытания?" text="Опишите материал и объём — подберём испытания и перезвоним в течение 30 минут. Или выберите объект в калькуляторе: состав испытаний и КП сформируются сразу." direction="Лабораторные испытания" />
+  <CallbackSection title="Нужны испытания?" text="Опишите материал и объём. Подберём испытания и перезвоним в течение 30 минут. Или выберите объект в калькуляторе: состав испытаний и КП сформируются сразу." direction="Лабораторные испытания" />
 </Base>
 
 <script>

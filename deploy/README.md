@@ -72,9 +72,12 @@ Tilda остаётся на nic-smk.ru, пока новый сайт прове�
 
 ## Обновление сайта
 
+Одна команда от root (консоль Timeweb или SSH). Пароли не спрашивает: берёт их из существующего `.env`.
+
 ```bash
-cd /opt/nic-smk && git pull   # или загрузить новые файлы
-sudo -u nicsmk ./deploy/deploy.sh && systemctl restart nic-smk
+sudo -u nicsmk git -C /opt/nic-smk pull --ff-only && bash /opt/nic-smk/deploy/update.sh
 ```
+
+Скрипт подтянет код из GitHub, прогонит тесты, соберёт сайт и перезапустит службу. Если тесты или сборка упадут, перезапуска не будет.
 
 PDF документов (аттестат, выписки СРО) положить в `public/docs/` под именами из основного README и пересобрать сайт.

@@ -17,7 +17,7 @@ export default function Consent({ id, checked, onChange, invalid }: Props) {
       </label>
       {invalid && (
         <div class="err" role="alert" style="margin-top:4px">
-          Без согласия не сможем принять заявку — отметьте поле.
+          Без согласия не сможем принять заявку. Отметьте поле.
         </div>
       )}
     </div>

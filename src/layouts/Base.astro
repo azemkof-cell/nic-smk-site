@@ -84,7 +84,7 @@ const ld = [org, breadcrumbs, ...schema].filter(Boolean);
   {ld.map((x) => <script type="application/ld+json" set:html={JSON.stringify(x)} />)}
 
   <div class="cookie" id="cookie" role="dialog" aria-live="polite" aria-label="Файлы cookie" hidden>
-    <p>Мы используем cookie: необходимые — чтобы работали формы и калькулятор, аналитические («Яндекс Метрика») — только с вашего согласия. <a href="/personalnye-dannye#politika">Подробнее</a></p>
+    <p>Мы используем cookie. Необходимые нужны для работы форм и калькулятора, аналитические («Яндекс Метрика») включаются только с вашего согласия. <a href="/personalnye-dannye#politika">Подробнее</a></p>
     <div class="cookie__btns">
       <button type="button" class="btn btn--accent btn--sm" data-cookie="all">Принять</button>
       <button type="button" class="btn btn--outline btn--sm" data-cookie="necessary">Только необходимые</button>

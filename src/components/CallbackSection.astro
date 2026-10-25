@@ -2,7 +2,7 @@
 import CallbackForm from './islands/CallbackForm';
 import { contacts, social } from '../lib/data';
 interface Props { title?: string; text?: string; direction?: string; id?: string }
-const { title = 'Остались вопросы? Перезвоним за 30 минут', text = 'Опишите объект и задачу — подберём состав работ и бесплатно проконсультируем.', direction, id = 'zayavka' } = Astro.props;
+const { title = 'Остались вопросы? Перезвоним за 30 минут', text = 'Опишите объект и задачу. Подберём состав работ и бесплатно проконсультируем.', direction, id = 'zayavka' } = Astro.props;
 ---
 <section class="container" id={id} style="padding-top:56px;padding-bottom:104px;scroll-margin-top:80px" aria-labelledby={id + '-h'}>
   <div class="cta-form">

@@ -76,5 +76,9 @@ export const social = {
   whatsapp: 'https://wa.me/79160065206',
   max: 'https://max.ru/u/f9LHodD0cOLZF6t7XRWCG-8q7VpEPbdTDQymQCEaeUK3dIo2XsYUSsrqEbo',
   yandexMaps: 'https://yandex.ru/maps/org/nauchno_ispytatelny_tsentr_stroitelnykh_materialov_i_konstruktsiy/138955398020/',
+  // Адрес лаборатории в навигационных сервисах (поиск по адресу, без координат)
+  gis2: 'https://2gis.ru/moscow/search/' + encodeURIComponent('Москва, Вилюйская улица, 11 ст3'),
+  navigatorApp: 'yandexnavi://map_search?text=' + encodeURIComponent('Москва, Вилюйская улица, 11с3'),
+  navigatorWeb: 'https://yandex.ru/maps/?mode=search&text=' + encodeURIComponent('Москва, Вилюйская улица, 11с3'),
   yandexReviews: 'https://yandex.ru/maps/org/nauchno_ispytatelny_tsentr_stroitelnykh_materialov_i_konstruktsiy/138955398020/reviews/',
 };

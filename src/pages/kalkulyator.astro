@@ -7,12 +7,12 @@ import { contacts } from '../lib/data';
 
 const crumbs = [{ name: 'Цены', href: '/ceny' }, { name: 'Калькулятор по объекту', href: '/kalkulyator' }];
 ---
-<Base title="Калькулятор стоимости испытаний и стройконтроля — НИЦ СМК" description="Введите параметры объекта — калькулятор по ГОСТ и СП определит состав испытаний, количество и стоимость. Стройконтроль по ПП № 468. КП в PDF за минуту." crumbs={crumbs}>
+<Base title="Калькулятор стоимости испытаний и стройконтроля | НИЦ СМК" description="Введите параметры объекта, и калькулятор по ГОСТ и СП определит состав испытаний, количество и стоимость. Стройконтроль по ПП № 468. КП в PDF за минуту." crumbs={crumbs}>
   <section class="container" style="padding-top:36px;padding-bottom:20px">
     <Crumbs items={crumbs} />
     <PriceTabs />
     <h1 class="h1 h1--sm" style="margin-top:24px">Рассчитайте стоимость работ по параметрам объекта</h1>
-    <p style="margin:14px 0 0;font-size:17px;color:var(--text-2);max-width:760px">Укажите, что строите, и введите площадь, объём или длину. Калькулятор по нормативам определит состав и количество испытаний и посчитает стоимость по нашему прайсу. Все цены — без НДС.</p>
+    <p style="margin:14px 0 0;font-size:17px;color:var(--text-2);max-width:760px">Укажите, что строите, и введите площадь, объём или длину. Калькулятор по нормативам определит состав и количество испытаний и посчитает стоимость по нашему прайсу. Все цены без НДС.</p>
   </section>
   <section class="container" style="padding-top:8px;padding-bottom:96px">
     <Calculator client:load phone={contacts.phone} />

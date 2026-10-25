@@ -1,7 +1,7 @@
 import { useRef, useState } from 'preact/hooks';
 import { goal } from '../../lib/client';
 import { packages } from '../../lib/data';
-import { fmt, months as monthsText } from '../../lib/format';
+import { fmt } from '../../lib/format';
 import { clampMonths, kpFromPackage, localKpNumber, type Kp } from '../../lib/kp';
 import Consent from './Consent';
 import Honeypot from './Honeypot';
@@ -84,7 +84,7 @@ export default function PackagesBlock({ phone, idPrefix = 'pk' }: { phone: strin
         <div style="display:flex;flex-wrap:wrap;gap:8px">
           <span class="pill">За объект / месяц</span>
           <span class="pill">Без НДС</span>
-          <a class="pill" href="/kalkulyator?type=asphalt">Дороги и благоустройство — калькулятор</a>
+          <a class="pill" href="/kalkulyator?type=asphalt">Дороги и благоустройство: калькулятор</a>
         </div>
       </div>
 
@@ -148,10 +148,10 @@ export default function PackagesBlock({ phone, idPrefix = 'pk' }: { phone: strin
         <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:6px">
           <span style="flex:none;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--ink);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center">2</span>
           <h3 style="margin:0;font-weight:800;font-size:19px;line-height:1.35">
-            Получите предложение по пакету «{cur.name}» — {fmt(cur.price)}&nbsp;₽ за объект в месяц
+            Получите предложение по пакету «{cur.name}»: {fmt(cur.price)}&nbsp;₽ за объект в месяц
           </h3>
         </div>
-        <p style="margin:0 0 20px;color:var(--on-ink);font-size:15px">Укажите объект и контакты — коммерческое предложение сформируется сразу, его можно сохранить в PDF.</p>
+        <p style="margin:0 0 20px;color:var(--on-ink);font-size:15px">Укажите объект и контакты. Коммерческое предложение сформируется сразу, его можно сохранить в PDF.</p>
         <form class="pk-form" onSubmit={onSubmit} noValidate>
           <Honeypot onValue={setHp} />
           <div class="field">
@@ -211,13 +211,13 @@ export default function PackagesBlock({ phone, idPrefix = 'pk' }: { phone: strin
               'Отправляем…'
             ) : (
               <span>
-                Получить предложение — {fmt(cur.price * m)}&nbsp;₽ за {monthsText(m)}
+                Получить предложение · {fmt(cur.price * m)}&nbsp;₽ за {m}&nbsp;мес.
               </span>
             )}
           </button>
         </form>
         <p style="margin:16px 0 0;font-size:14px;color:var(--on-ink)">
-          Для крупных объектов — стационарный пост лаборатории на объекте: от {fmt(packages.stationaryPost.priceFrom)}&nbsp;₽/мес.
+          Для крупных объектов есть стационарный пост лаборатории на объекте: от {fmt(packages.stationaryPost.priceFrom)}&nbsp;₽/мес.
         </p>
       </div>
 

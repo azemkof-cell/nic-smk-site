@@ -224,18 +224,18 @@ export function kpHtml(kp: Kp, opts: { sign?: string; stamp?: string } = {}): st
 <span style="color:${C.muted}">Заказчик</span><span style="font-weight:700;overflow-wrap:anywhere">${e(client)}</span>
 <span style="color:${C.muted}">Контакт</span><span style="overflow-wrap:anywhere">${e(contact)}</span>
 <span style="color:${C.muted}">Объект</span><span style="font-weight:700;overflow-wrap:anywhere">${e((kp.lead.addr || '').trim() || 'адрес уточняется')}</span>
-<span style="color:${C.muted}">Вид работ</span><span>${e(kp.object)} — ${e(kp.summary)}</span>
+<span style="color:${C.muted}">Вид работ</span><span>${e(kp.object)}: ${e(kp.summary)}</span>
 </div>
 <p style="margin:22px 0 0;line-height:1.6">${e(kp.intro)}</p>
 ${body}
 <div style="margin-top:22px;display:flex;flex-direction:column;gap:6px;font-size:14px;color:${C.text2}">
 <div style="font-weight:800;color:${C.ink}">Условия</div>
-<span>— Цены указаны без НДС.</span>
-${kp.hasFrom ? '<span>— Цены с пометкой «от» — минимальные; точная стоимость — после уточнения объёмов по проекту и условиям объекта.</span>' : ''}
-${kp.pack ? `<span>— Стоимость пакета — ${e(fmt(kp.pack.price))} ₽ за один объект в месяц, без НДС.</span>` : ''}
-<span>— Сроки выполнения работ согласовываются при заключении договора.</span>
-<span>— Информация не является публичной офертой; итоговая стоимость фиксируется в договоре.</span>
-<span>— Срок действия предложения: 30 календарных дней (до ${e(until)}).</span>
+<span>• Цены указаны без НДС.</span>
+${kp.hasFrom ? '<span>• Цены с пометкой «от» минимальные. Точная стоимость определяется после уточнения объёмов по проекту и условиям объекта.</span>' : ''}
+${kp.pack ? `<span>• Стоимость пакета: ${e(fmt(kp.pack.price))} ₽ за один объект в месяц, без НДС.</span>` : ''}
+<span>• Сроки выполнения работ согласовываются при заключении договора.</span>
+<span>• Информация не является публичной офертой; итоговая стоимость фиксируется в договоре.</span>
+<span>• Срок действия предложения: 30 календарных дней (до ${e(until)}).</span>
 </div>
 <div style="margin-top:32px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px">
 <div style="position:relative;font-size:14px;min-height:150px;padding-right:150px">
@@ -251,14 +251,14 @@ ${signImgs}
 export function kpText(kp: Kp): string {
   const { date, until } = kpDates(kp.date);
   const from = (b: boolean) => (b ? 'от ' : '');
-  const lines = kp.rows.map((r, i) => `${i + 1}. ${r.name} — ${fmt(r.qty)} ${r.unit} × ${from(r.from)}${fmt(r.price)} = ${from(r.from)}${fmt(r.sum)} ₽`);
+  const lines = kp.rows.map((r, i) => `${i + 1}. ${r.name}: ${fmt(r.qty)} ${r.unit} × ${from(r.from)}${fmt(r.price)} = ${from(r.from)}${fmt(r.sum)} ₽`);
   return [
     `Коммерческое предложение ${kp.no} от ${date} (до ${until})`,
     kp.subject,
     `Заказчик: ${kp.lead.org || '—'}`,
     `Контакт: ${kp.lead.name}, ${kp.lead.phone}${kp.lead.email ? ', ' + kp.lead.email : ''}`,
     `Объект: ${kp.lead.addr || 'адрес уточняется'}`,
-    `Вид работ: ${kp.object} — ${kp.summary}`,
+    `Вид работ: ${kp.object}, ${kp.summary}`,
     '',
     ...lines,
     '',
